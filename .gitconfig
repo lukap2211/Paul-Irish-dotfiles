@@ -20,7 +20,7 @@
 	git = !exec git
 
 [core]
-	excludesfile = ~/.gitignore
+	excludesfile = ~/.gitignore_global
 	attributesfile = ~/.gitattributes
 
 [pager]
@@ -76,7 +76,7 @@
 [url "git@gist.github.com:"]
 	pushInsteadOf = "gist:"
 	pushInsteadOf = "git://gist.github.com/"
-	
+
 [url "git://gist.github.com/"]
 	insteadOf = "gist:"
 
@@ -97,9 +97,10 @@
 #	templatedir = ~/.git_template
 
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
 	required = true
+	process = git-lfs filter-process
 
 [fetch]
 	prune = true
@@ -113,3 +114,6 @@
 	showPatch = true
 [log]
 	date = relative
+[user]
+	name = Luka Puharic
+	email = lukap2211@gmail.com
