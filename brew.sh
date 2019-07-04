@@ -77,5 +77,13 @@ brew install ncdu # find where your diskspace went
 
 brew install zsh
 
+brew install yarn
+
+# lolcommitss
+brew install imagemagick
+    
+    # ruby lolcommits
+    sudo gem install lolcommits
+
 # Remove outdated versions from the cellar
 brew cleanup
