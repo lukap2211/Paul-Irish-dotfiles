@@ -11,15 +11,17 @@ brew install caskroom/cask/brew-cask
 # brew tap caskroom/versions
 
 # daily
-# brew cask install spectacle
+brew cask install spectacle
 brew cask install dropbox
-# brew cask install gyazo
+brew cask install gyazo
 brew cask install 1password
 brew cask install rescuetime
 # brew cask install flux
 
 # dev
 brew cask install iterm2
+brew cask install visual-studio-code
+brew cask install github
 # brew cask install sublime-text
 brew cask install imagealpha
 brew cask install imageoptim
@@ -46,7 +48,7 @@ brew cask install vlc
 
 brew cask install spotify
 
-brew tap caskroom/fonts 
+brew tap caskroom/fonts
 brew cask install font-fira-code
 
 

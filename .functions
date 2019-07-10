@@ -201,3 +201,13 @@ function cleanup_yarn_npm() {
 	rm -f yarn.lock
 	rm -rf node_modules
 }
+
+function git_branches() {
+	if [ -z $1 ] ; then
+		local filterBy='authordate'
+	else
+		local filterBy=$1
+	fi
+	git for-each-ref --format='%(color:cyan)%(authordate:format:%m/%d/%Y %I:%M %p)    %(align:25,left)%(color:yellow)%(authorname)%(end) %(color:reset)%(refname:strip=3)' --sort=$filterBy refs/remotes
+	echo "git_branches $filterBy [authordate|author|refname]"
+}
