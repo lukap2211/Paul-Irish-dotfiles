@@ -119,3 +119,7 @@
 [user]
 	name = Luka Puharic
 	email = lukap2211@gmail.com
+[pull]
+	rebase = true
+[branch]
+  autosetuprebase = always
