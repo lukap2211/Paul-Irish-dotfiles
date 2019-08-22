@@ -1,4 +1,5 @@
 [alias]
+	b = branch
 	c = commit -am
 	fpush = push --force
 	s = status
