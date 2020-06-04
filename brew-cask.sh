@@ -11,12 +11,12 @@ brew install caskroom/cask/brew-cask
 # brew tap caskroom/versions
 
 # daily
-# brew cask install spectacle
 brew cask install rectangle
 brew cask install dropbox
 brew cask install gyazo
 brew cask install 1password
 brew cask install rescuetime
+brew cask install cyberduck
 # brew cask install flux
 
 # dev
