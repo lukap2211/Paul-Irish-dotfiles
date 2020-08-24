@@ -230,7 +230,7 @@ git config status.showuntrackedfiles no
 git update-index --untracked-cache
 
 
-# !! EHHH. to be honest i tried this and it seems to be slow me down. 
+# !! EHHH. to be honest i tried this and it seems to be slow me down.
 # use watchman with git 2.17 for src changes
 # https://blog.github.com/2018-04-05-git-217-released/#speeding-up-status-with-watchman
 #    brew install watchman
@@ -239,7 +239,7 @@ git update-index --untracked-cache
 #    git config core.fsmonitor .git/hooks/query-watchman
 
 # also this unrelated thing
-git config user.email "paulirish@chromium.org"
+git config user.email "lukap2211@gmail.com"
 
 
 ##############################################################################################################

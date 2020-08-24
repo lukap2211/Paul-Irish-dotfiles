@@ -13,10 +13,10 @@ brew install caskroom/cask/brew-cask
 # daily
 brew cask install rectangle
 brew cask install dropbox
-brew cask install gyazo
+# brew cask install gyazo
 brew cask install 1password
 brew cask install rescuetime
-brew cask install cyberduck
+# brew cask install cyberduck
 # brew cask install flux
 
 # dev
@@ -49,8 +49,8 @@ brew cask install vlc
 
 brew cask install spotify
 
-brew tap caskroom/fonts
-brew cask install font-fira-code
+# brew tap caskroom/fonts
+# brew cask install font-fira-code
 
 
 # Not on cask but I want regardless.
