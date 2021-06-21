@@ -13,6 +13,7 @@
 	cherrypick = cherry-pick
 	cherry = cherry-pick
 	cp = cherry-pick
+  wip = for-each-ref --sort='authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
 
 	# Show the diff between the latest commit and the current state
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
