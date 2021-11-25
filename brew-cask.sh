@@ -14,8 +14,8 @@ brew install caskroom/cask/brew-cask
 brew cask install rectangle
 brew cask install dropbox
 # brew cask install gyazo
-brew cask install 1password
-brew cask install rescuetime
+# brew cask install 1password
+# brew cask install rescuetime
 # brew cask install cyberduck
 # brew cask install flux
 
@@ -47,7 +47,7 @@ brew cask install vlc
 # brew cask install licecap
 # brew cask install utorrent
 
-brew cask install spotify
+# brew cask install spotify
 
 # brew tap caskroom/fonts
 # brew cask install font-fira-code

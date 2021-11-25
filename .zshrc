@@ -30,9 +30,6 @@ antigen bundle command-not-found
 # Helper for extracting different types of archives.
 antigen bundle extract
 
-# atom editor
-antigen bundle atom
-
 # homebrew  - autocomplete on `brew install`
 antigen bundle brew
 antigen bundle brew-cask
@@ -50,7 +47,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
 
 # suggestions
-# antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-autosuggestions
 
 # colors for all files!
 antigen bundle trapd00r/zsh-syntax-highlighting-filetypes
@@ -124,6 +121,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+
 ZSH_THEME="strug"
 # ZSH_THEME="lukap2211"
 
