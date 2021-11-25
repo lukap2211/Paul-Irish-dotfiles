@@ -42,8 +42,12 @@ brew install z
 # run this script when this file changes guy.
 brew install entr
 
+# old
 # github util. gotta love `hub fork`, `hub create`, `hub checkout <PRurl>`
-brew install hub
+# brew install hub
+
+# new
+brew install gh
 
 
 # mtr - ping & traceroute. best.
@@ -64,23 +68,25 @@ brew install imagemagick --with-webp
 brew install node # This installs `npm` too using the recommended installation method
 brew install nvm
 brew install pv
-brew install rename
+# brew install rename
 brew install tree
-brew install zopfli
+# brew install zopfli
 brew install ffmpeg --with-libvpx
 
 brew install terminal-notifier
 
-brew install android-platform-tools
-brew install pidcat   # colored logcat guy
+# brew install android-platform-tools
+# brew install pidcat   # colored logcat guy
 
-brew install ncdu # find where your diskspace went
+# brew install ncdu # find where your diskspace went
 
+# zsh
 brew install zsh
+brew install antigen
 
 brew install yarn
 
-# lolcommitss
+# required for lolcommits
 brew install imagemagick
 
 # ruby lolcommits
