@@ -1,5 +1,6 @@
-set default_user "paulirish"
-set default_machine "paulirish-macbookair2"
+# set default_user "lukap"
+set default_username 'lukap2211'
+set default_machine "Luka-MacBook-Pro"
 
 
 source ~/.config/fish/path.fish

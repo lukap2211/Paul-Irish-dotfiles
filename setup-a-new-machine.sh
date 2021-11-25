@@ -276,3 +276,10 @@ sh .osx
 
 ###
 ##############################################################################################################
+
+
+# Oh my zsh
+git clone git://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
+
+# Move theme into the rright place after installing and running symlink-setup.sh
+mv lukap2211.zsh-theme $HOME/.oh-my-zsh/custom/themes/
