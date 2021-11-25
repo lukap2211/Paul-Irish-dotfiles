@@ -82,9 +82,9 @@ brew install yarn
 
 # lolcommitss
 brew install imagemagick
-    
-    # ruby lolcommits
-    sudo gem install lolcommits
+
+# ruby lolcommits
+sudo gem install lolcommits
 
 # Remove outdated versions from the cellar
 brew cleanup

@@ -12,55 +12,55 @@ fpath=( "$HOME/.zfunctions" $fpath )
 
 
 # antigen time!
-source ~/code/antigen/antigen.zsh
+source /usr/local/share/antigen/antigen.zsh
 
 
 ######################################################################
 ### install some antigen bundles
 
-local b="antigen-bundle"
+local b="antigen bundle"
 
 
 # Don't load the oh-my-zsh's library. Takes too long. No need.
-	# antigen use oh-my-zsh
+# antigen use oh-my-zsh
 
 # Guess what to install when running an unknown command.
-$b command-not-found
+antigen bundle command-not-found
 
 # Helper for extracting different types of archives.
-$b extract
+antigen bundle extract
 
 # atom editor
-$b atom
+antigen bundle atom
 
 # homebrew  - autocomplete on `brew install`
-$b brew
-$b brew-cask
+antigen bundle brew
+antigen bundle brew-cask
 
 # Tracks your most used directories, based on 'frecency'.
-$b robbyrussell/oh-my-zsh plugins/z
+antigen bundle robbyrussell/oh-my-zsh plugins/z
 
 # nicoulaj's moar completion files for zsh -- not sure why disabled.
-# $b zsh-users/zsh-completions src
+antigen bundle zsh-users/zsh-completions src
 
 # Syntax highlighting on the readline
-$b zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-syntax-highlighting
 
 # history search
-$b zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
+antigen bundle zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
 
 # suggestions
-$b tarruda/zsh-autosuggestions
+# antigen bundle zsh-users/zsh-autosuggestions
 
 # colors for all files!
-$b trapd00r/zsh-syntax-highlighting-filetypes
+antigen bundle trapd00r/zsh-syntax-highlighting-filetypes
 
 # dont set a theme, because pure does it all
-$b mafredri/zsh-async
-$b sindresorhus/pure
+antigen bundle mafredri/zsh-async
+antigen bundle sindresorhus/pure
 
 # Tell antigen that you're done.
-#antigen apply
+antigen applyZ
 
 ###
 #################################################################################################
@@ -84,11 +84,11 @@ chpwd_functions=( auto-ls $chpwd_functions )
 
 
 # Enable autosuggestions automatically
-zle-line-init() {
-    zle autosuggest-start
-}
+# zle-line-init() {
+#     zle autosuggest-start
+# }
 
-zle -N zle-line-init
+# zle -N zle-line-init
 
 
 # history mgmt
@@ -103,7 +103,8 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 # uncomment to finish profiling
 # zprof
 
-
+# manually installed zsh-autosuggestions: https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Load default dotfiles
 source ~/.bash_profile
@@ -112,3 +113,25 @@ source ~/.bash_profile
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+# oh-my-zsh
+
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="strug"
+# ZSH_THEME="lukap2211"
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh

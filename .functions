@@ -221,8 +221,3 @@ function git_branches() {
 hub_pr_list() {
   hub pr list -f "%pC%>(8)%i%Creset %au - %t %l%n" $@
 }
-
-# postgres
-
-brew services start postgresql
-
