@@ -11,46 +11,46 @@ brew install caskroom/cask/brew-cask
 # brew tap caskroom/versions
 
 # daily
-brew cask install rectangle
-brew cask install dropbox
-# brew cask install gyazo
-# brew cask install 1password
-# brew cask install rescuetime
-# brew cask install cyberduck
-# brew cask install flux
+brew install --cask rectangle
+brew install --cask dropbox
+# brew install --cask gyazo
+# brew install --cask 1password
+# brew install --cask rescuetime
+# brew install --cask cyberduck
+# brew install --cask flux
 
 # dev
-brew cask install iterm2
-brew cask install visual-studio-code
-brew cask install github
-# brew cask install sublime-text
-brew cask install imagealpha
-brew cask install imageoptim
+brew install --cask iterm2
+brew install --cask visual-studio-code
+brew install --cask github
+# brew install --cask sublime-text
+brew install --cask imagealpha
+brew install --cask imageoptim
 
 # fun
-# brew cask install limechat
-# brew cask install miro-video-converter
-# brew cask install horndis               # usb tethering
+# brew install --cask limechat
+# brew install --cask miro-video-converter
+# brew install --cask horndis               # usb tethering
 
 # browsers
-# brew cask install google-chrome-canary
-# brew cask install firefoxnightly
-# brew cask install webkit-nightly
-# brew cask install chromium
-# brew cask install torbrowser
+# brew install --cask google-chrome-canary
+# brew install --cask firefoxnightly
+# brew install --cask webkit-nightly
+# brew install --cask chromium
+# brew install --cask torbrowser
 
 # less often
-# brew cask install disk-inventory-x
-# brew cask install screenflow
-brew cask install vlc
-# brew cask install gpgtools
-# brew cask install licecap
-# brew cask install utorrent
+# brew install --cask disk-inventory-x
+# brew install --cask screenflow
+brew install --cask vlc
+# brew install --cask gpgtools
+# brew install --cask licecap
+# brew install --cask utorrent
 
-# brew cask install spotify
+# brew install --cask spotify
 
 # brew tap caskroom/fonts
-# brew cask install font-fira-code
+# brew install --cask font-fira-code
 
 
 # Not on cask but I want regardless.

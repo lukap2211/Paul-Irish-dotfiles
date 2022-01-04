@@ -57,7 +57,7 @@ antigen bundle mafredri/zsh-async
 antigen bundle sindresorhus/pure
 
 # Tell antigen that you're done.
-antigen applyZ
+antigen apply
 
 ###
 #################################################################################################
