@@ -97,8 +97,11 @@
 [include]
   path = ~/.gitconfig.local
 
-#[init]
-#	templatedir = ~/.git_template
+[includeIf "gitdir:~/BBGitHub/"]
+  path = ~/.gitconfig.bloomberg
+
+[init]
+	defaultBranch = main
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f
@@ -116,9 +119,6 @@
 	showPatch = true
 [log]
 	date = relative
-[user]
-	name = Luka Puharic
-	email = lukap2211@gmail.com
 [pull]
 	rebase = true
 [branch]
