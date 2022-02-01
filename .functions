@@ -213,7 +213,7 @@ function git_branches() {
 	else
 		local filterBy=$1
 	fi
-	git for-each-ref --format='%(color:cyan)%(authordate:format:%m/%d/%Y %I:%M %p)    %(align:25,left)%(color:yellow)%(authorname)%(end) %(color:reset)%(refname:strip=3)' --sort=$filterBy refs/remotes
+	git for-each-ref --format='%(color:cyan)%(authordate:format:%m/%d/%Y %I:%M %p)    %(align:25,left)%(color:yellow)%(authorname)%(end) %(color:reset)%(refname:strip=2)' --sort=$filterBy refs/remotes
 	echo "git_branches $filterBy [authordate|author|refname]"
 }
 
