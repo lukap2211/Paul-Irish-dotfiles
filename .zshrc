@@ -131,8 +131,11 @@ ZSH_THEME="strug"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  aws
   git
-  zsh-syntax-highlighting
+  gh
+  docker
+  # zsh-syntax-highlighting
   zsh-autosuggestions
 )
 

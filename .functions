@@ -219,5 +219,5 @@ function git_branches() {
 
 # requires hub - adds author
 hub_pr_list() {
-  hub pr list -f "%pC%>(8)%i%Creset %au - %t %l%n" $@
+  hub pr list -f "%sC%<(12)%au %i%Creset %t %l %pC[%pS]%n" $@
 }
