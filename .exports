@@ -22,3 +22,9 @@ export NVM_DIR="$HOME/.nvm"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
+# lolcommits
+
+# outsourced to home, so not every picture gets uploaded. Project folder is being added automatically.
+export LOLCOMMITS_DIR=$HOME/Desktop/lolcommits
+# MACBook Camera needs to warm up. 3 would be better, but 2 is acceptable.
+export LOLCOMMITS_DELAY=2
