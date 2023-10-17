@@ -8,7 +8,7 @@ SAVEHIST=100000
 bindkey -v
 
 
-fpath=( "$HOME/.zfunctions" $fpath )
+# fpath=( "$HOME/.zfunctions" $fpath )
 
 
 # antigen time!
@@ -25,36 +25,24 @@ local b="antigen bundle"
 # antigen use oh-my-zsh
 
 # Guess what to install when running an unknown command.
-antigen bundle command-not-found
+# antigen bundle command-not-found
 
 # Helper for extracting different types of archives.
-antigen bundle extract
+# antigen bundle extract
 
 # homebrew  - autocomplete on `brew install`
-antigen bundle brew
-antigen bundle brew-cask
-
-# Tracks your most used directories, based on 'frecency'.
-antigen bundle robbyrussell/oh-my-zsh plugins/z
-
-# nicoulaj's moar completion files for zsh -- not sure why disabled.
-antigen bundle zsh-users/zsh-completions src
-
-# Syntax highlighting on the readline
-antigen bundle zsh-users/zsh-syntax-highlighting
+# antigen bundle brew
+# antigen bundle brew-cask
 
 # history search
-antigen bundle zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
+# antigen bundle zsh-users/zsh-history-substring-search ./zsh-history-substring-search.zsh
 
-# suggestions
-antigen bundle zsh-users/zsh-autosuggestions
-
-# colors for all files!
-antigen bundle trapd00r/zsh-syntax-highlighting-filetypes
+# colors for all files! # ! HAS ISSUES!! - not needed
+# antigen bundle trapd00r/zsh-syntax-highlighting-filetypes
 
 # dont set a theme, because pure does it all
-antigen bundle mafredri/zsh-async
-antigen bundle sindresorhus/pure
+# antigen bundle mafredri/zsh-async
+# antigen bundle sindresorhus/pure
 
 # Tell antigen that you're done.
 antigen apply
@@ -63,11 +51,11 @@ antigen apply
 #################################################################################################
 
 
-
+# ! not needed
 # bind UP and DOWN arrow keys for history search
-zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
+# zmodload zsh/terminfo
+# bindkey "$terminfo[kcuu1]" history-substring-search-up
+# bindkey "$terminfo[kcud1]" history-substring-search-down
 
 export PURE_GIT_UNTRACKED_DIRTY=0
 
@@ -100,17 +88,16 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 # uncomment to finish profiling
 # zprof
 
-# manually installed zsh-autosuggestions: https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# installed with homebrew
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Load default dotfiles
 source ~/.bash_profile
 
-
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 
 # oh-my-zsh
 
@@ -131,12 +118,31 @@ ZSH_THEME="strug"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  aws
-  git
   gh
+  git
+  aws
+  azure
   docker
-  # zsh-syntax-highlighting
-  zsh-autosuggestions
+  docker-compose
 )
 
 source $ZSH/oh-my-zsh.sh
+
+# ! alternative simple prompt
+# # PURE Prompt
+# autoload -U promptinit; promptinit
+
+# # optionally define some options
+# PURE_CMD_MAX_EXEC_TIME=10
+
+# # change the path color
+# zstyle :prompt:pure:path color white
+
+# # change the color for both `prompt:success` and `prompt:error`
+# zstyle ':prompt:pure:prompt:*' color cyan
+
+# # turn on git stash status
+# zstyle :prompt:pure:git:stash show yes
+# zstyle :prompt:pure:path color '#FF0000'
+
+# prompt pure

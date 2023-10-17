@@ -123,3 +123,5 @@
 	rebase = true
 [branch]
   autosetuprebase = always
+[url "workgit:"]
+	insteadof = https://work.example.com/
