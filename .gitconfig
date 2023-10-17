@@ -123,3 +123,5 @@
 	rebase = true
 [branch]
   autosetuprebase = always
+[url "bbgithub:"]
+	insteadof = https://bbgithub.dev.bloomberg.com/
