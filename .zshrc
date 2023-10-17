@@ -10,15 +10,15 @@ bindkey -v
 
 # fpath=( "$HOME/.zfunctions" $fpath )
 
-
+# ! NOT USING ANTIGEN
 # antigen time!
-source /usr/local/share/antigen/antigen.zsh
+# source /usr/local/share/antigen/antigen.zsh
 
 
 ######################################################################
 ### install some antigen bundles
 
-local b="antigen bundle"
+# local b="antigen bundle"
 
 
 # Don't load the oh-my-zsh's library. Takes too long. No need.
@@ -45,7 +45,7 @@ local b="antigen bundle"
 # antigen bundle sindresorhus/pure
 
 # Tell antigen that you're done.
-antigen apply
+# antigen apply
 
 ###
 #################################################################################################
@@ -95,7 +95,8 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # Load default dotfiles
 source ~/.bash_profile
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+# export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="/usr/local/sbin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

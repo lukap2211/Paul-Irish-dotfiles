@@ -15,26 +15,29 @@ brew install moreutils
 # GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed
 brew install findutils
 # GNU `sed`, overwriting the built-in `sed`
-brew install gnu-sed --with-default-names
+brew install gnu-sed # --with-default-names
 
 
 # Bash 4
 # Note: don’t forget to add `/usr/local/bin/bash` to `/etc/shells` before running `chsh`.
-brew install bash
+# brew install bash
 
-brew install bash-completion
+# brew install bash-completion
 
-brew install homebrew/completions/brew-cask-completion
+# ! deprecated
+# brew install homebrew/completions/brew-cask-completion
 
 # Install wget with IRI support
-brew install wget --with-iri
+brew install wget #--with-iri
 
 # Install more recent versions of some OS X tools
-brew install vim --with-override-system-vi
-brew install homebrew/dupes/nano
-brew install homebrew/dupes/grep
-brew install homebrew/dupes/openssh
-brew install homebrew/dupes/screen
+brew install vim #--with-override-system-vi
+
+# ! deprecated
+# brew install homebrew/dupes/nano
+# brew install homebrew/dupes/grep
+# brew install homebrew/dupes/openssh
+# brew install homebrew/dupes/screen
 
 # z hopping around folders
 brew install z
@@ -64,14 +67,14 @@ brew install the_silver_searcher
 brew install fzf
 
 brew install git
-brew install imagemagick --with-webp
+brew install imagemagick #--with-webp
 brew install node # This installs `npm` too using the recommended installation method
 brew install nvm
 brew install pv
 # brew install rename
 brew install tree
 # brew install zopfli
-brew install ffmpeg --with-libvpx
+brew install ffmpeg #--with-libvpx
 
 brew install terminal-notifier
 
@@ -82,9 +85,11 @@ brew install terminal-notifier
 
 # zsh
 brew install zsh
-brew install antigen
+brew install zsh-autosuggestions
+brew install zsh-syntax-highlighting
 
-brew install yarn
+# since using brew for zsh plugins antigen not needed
+# brew install antigen
 
 # required for lolcommits
 brew install imagemagick

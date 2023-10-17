@@ -88,9 +88,7 @@ alias emptytrash=" \
 "
 
 # Update installed Ruby gems, Homebrew, npm, and their installed packages
-alias brew_update="brew -v update; brew upgrade --force-bottle; brew cleanup; brew cask upgrade; brew prune; brew doctor; npm-check -g -u"
+alias brew_update="brew -v update; brew upgrade --force-bottle; brew cleanup; brew upgrade --cask; brew doctor"
 alias update_brew_npm_gem='brew_update; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update --no-document'
 
-# overridde deafult macos old version - lukap
-#alias python=/usr/local/bin/python3.7.3
 alias pip=/usr/local/bin/pip3
