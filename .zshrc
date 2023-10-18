@@ -92,8 +92,6 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Load default dotfiles
-source ~/.bash_profile
 
 # export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PATH="/usr/local/sbin:$PATH"
@@ -125,9 +123,14 @@ plugins=(
   azure
   docker
   docker-compose
+  zsh-interactive-cd
+  zsh-navigation-tools
 )
 
 source $ZSH/oh-my-zsh.sh
+
+# Load default dotfiles
+source ~/.bash_profile
 
 # ! alternative simple prompt
 # # PURE Prompt
