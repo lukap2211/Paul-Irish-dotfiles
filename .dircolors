@@ -170,6 +170,7 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3 # core
 .plist                1                   # Configs
 .profile              1                   # Configs
 .bash_profile         1                   # Configs
+.bash_prompt          1                   # Configs
 .bash_login           1                   # Configs
 .bash_logout          1                   # Configs
 .zshenv               1                   # Configs
@@ -194,6 +195,7 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3 # core
 .user-ca-bundle       1                   # Configs
 .rstheme              1                   # Configs
 .epf                  1                   # Configs
+.code-workspace       38;5;240            # Configs
 .git                  38;5;197            # Version control
 .github               38;5;197            # Version control
 .gitignore            38;5;240            # Version control
@@ -333,6 +335,7 @@ STICKY_OTHER_WRITABLE 48;5;235;38;5;139;3 # core
 .vba                  38;5;81             # VBA
 .vbs                  38;5;81             # VBA
 *Dockerfile           38;5;155            # Build process (Docker)
+*Jenkinsfile          38;5;155            # Build process (Docker)
 .dockerignore         38;5;240            # Build process (Docker)
 *Makefile             38;5;155            # Build process (Make)
 *MANIFEST             38;5;243            # Build process (Make)

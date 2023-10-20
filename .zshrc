@@ -10,6 +10,11 @@ bindkey -v
 
 # fpath=( "$HOME/.zfunctions" $fpath )
 
+# ! MAKE SURE ARM64 Brew is used
+# which brew                                                                                                                                                          <aws:blpsaml>
+# /opt/homebrew/bin/brew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # ! NOT USING ANTIGEN
 # antigen time!
 # source /usr/local/share/antigen/antigen.zsh
@@ -89,12 +94,14 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 # zprof
 
 # installed with homebrew
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PATH="/usr/local/sbin:$PATH"
+
+# python3 unversioned symlinks
+export PATH=/opt/homebrew/opt/python@3.11/libexec/bin:$PATH
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -117,6 +124,7 @@ ZSH_THEME="strug"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  macos
   gh
   git
   aws
