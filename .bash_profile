@@ -88,6 +88,7 @@ fi;
 
 if [[ -n "$ZSH_VERSION" ]]; then  # quit now if in zsh
     return 1 2> /dev/null || exit 1;
+    echo "Using zsh: ${ZSH_VERSION}"
 fi;
 
 # Sorry, very MacOS centric here. :/
