@@ -119,11 +119,11 @@ print_question() {
 }
 
 print_result() {
-    [ $1 -eq 0 ] \
+    [ "$1" -eq 0 ] \
         && print_success "$2" \
         || print_error "$2"
 
-    [ "$3" == "true" ] && [ $1 -ne 0 ] \
+    [ "$3" == "true" ] && [ "$1" -ne 0 ] \
         && exit
 }
 
@@ -144,7 +144,7 @@ print_success() {
 
 # finds all .dotfiles in this folder
 declare -a FILES_TO_SYMLINK=$(find . -type f -maxdepth 1 -name ".*" -not -name .DS_Store -not -name .git -not -name .osx | sed -e 's|//|/|' | sed -e 's|./.|.|')
-FILES_TO_SYMLINK="$FILES_TO_SYMLINK .vim bin .gitignore_global lukap2211.zsh-theme " # add in vim and the binaries
+FILES_TO_SYMLINK="$FILES_TO_SYMLINK .vim bin .gitignore_global lukap2211.zsh-theme Brewfile Brewfile.lock.json " # add in vim and the binaries
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

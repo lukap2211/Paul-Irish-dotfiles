@@ -101,7 +101,7 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export PATH="/usr/local/sbin:$PATH"
 
 # python3 unversioned symlinks
-export PATH=/opt/homebrew/opt/python@3.11/libexec/bin:$PATH
+export PATH=/opt/homebrew/opt/python@3.12/libexec/bin:$PATH
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -158,3 +158,18 @@ source ~/.bash_profile
 # zstyle :prompt:pure:path color '#FF0000'
 
 # prompt pure
+
+# manually installed Pg from https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
+# export PATH="/Library/PostgreSQL/15/bin:$PATH"
+
+export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/lpuharic1/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/lpuharic1/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/lpuharic1/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/lpuharic1/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+PATH=~/.console-ninja/.bin:$PATH
+source ~/.lcldevrc
