@@ -54,7 +54,7 @@ brew "jq"
 brew "libzip"
 brew "moreutils"
 brew "mtr"
-brew "node@20", link: true
+# brew "node@20", link: true
 brew "openblas"
 brew "numpy", link: false
 brew "nvm"
