@@ -13,7 +13,7 @@ mkdir -p ~/migration/Library/Preferences/
 mkdir -p ~/migration/Library/Application Support/
 mkdir -p ~/migration/rootLibrary/Preferences/SystemConfiguration/
 
-cd ~/migration
+cd ~/migration || exit
 
 # what is worth reinstalling?
 brew leaves              > brew-list.txt    # all top-level brew installs
@@ -189,15 +189,15 @@ git clone https://github.com/thebitguru/play-button-itunes-patch ~/code/play-but
 
 
 # for the c alias (syntax highlighted cat)
-sudo easy_install Pygments
+# sudo easy_install Pygments
 
 
 # change to bash 4 (installed by homebrew)
 BASHPATH=$(brew --prefix)/bin/bash
 #sudo echo $BASHPATH >> /etc/shells
 sudo bash -c 'echo $(brew --prefix)/bin/bash >> /etc/shells'
-chsh -s $BASHPATH # will set for current user only.
-echo $BASH_VERSION # should be 4.x not the old 3.2.X
+chsh -s "$BASHPATH" # will set for current user only.
+echo "$BASH_VERSION" # should be 4.x not the old 3.2.X
 # Later, confirm iterm settings aren't conflicting.
 
 
@@ -282,7 +282,7 @@ sh .osx
 
 
 # Oh my zsh
-git clone git://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
+git clone git://github.com/robbyrussell/oh-my-zsh.git "$HOME"/.oh-my-zsh
 
 # Move theme into the rright place after installing and running symlink-setup.sh
-mv lukap2211.zsh-theme $HOME/.oh-my-zsh/custom/themes/
+mv lukap2211.zsh-theme "$HOME"/.oh-my-zsh/custom/themes/
