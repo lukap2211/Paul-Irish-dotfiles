@@ -1,14 +1,11 @@
 #!/bin/bash
 
 
-# to maintain cask ....
-#     brew update && brew upgrade brew-cask && brew cleanup && brew cask cleanup`
+# to maintain casks ....
+#     brew update && brew upgrade --cask && brew cleanup
 
 
-# Install native apps
-
-brew install caskroom/cask/brew-cask
-# brew tap caskroom/versions
+# Install native apps (casks are built into homebrew, no tap needed)
 
 # daily
 brew install --cask rectangle
@@ -49,7 +46,6 @@ brew install --cask vlc
 
 # brew install --cask spotify
 
-# brew tap caskroom/fonts
 # brew install --cask font-fira-code
 
 
