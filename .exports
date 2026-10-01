@@ -19,6 +19,9 @@ export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
+
+export PATH="$(brew --prefix)/opt/curl/bin:$PATH"
+
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
@@ -28,3 +31,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export LOLCOMMITS_DIR=$HOME/Desktop/lolcommits
 # MACBook Camera needs to warm up. 3 would be better, but 2 is acceptable.
 export LOLCOMMITS_DELAY=2
+
+# NVM dark mode colors
+export NVM_COLORS='cgYmW'

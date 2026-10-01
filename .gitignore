@@ -36,3 +36,6 @@ fish/fish_history
 
 # random
 shilocation
+
+# python virtual env
+venv
