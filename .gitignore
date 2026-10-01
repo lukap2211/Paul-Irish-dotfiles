@@ -39,3 +39,4 @@ shilocation
 
 # python virtual env
 venv
+.vim/plugged
