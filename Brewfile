@@ -6,20 +6,16 @@ tap "teamookla/speedtest"
 brew "act"
 # CLI tool for working with Architecture Decision Records
 brew "adr-tools"
-# General-purpose data compression with high compression ratio
-brew "xz"
-# TIFF library and utilities
-brew "libtiff"
-# New file format for still image compression
-brew "jpeg-xl"
-# Image format providing lossless and lossy compression for web images
-brew "webp"
 # Codec library for encoding and decoding AV1 video streams
 brew "aom"
 # Cryptography and SSL/TLS Toolkit
 brew "openssl@3", link: true
 # Library for command-line editing
 brew "readline"
+# General-purpose data compression with high compression ratio
+brew "xz"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.14"
 # Official Amazon AWS command-line interface
 brew "awscli"
 # Microsoft Azure CLI 2.0
@@ -28,24 +24,24 @@ brew "azure-cli"
 brew "glib"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
-# Validating, recursive, caching DNS resolver
-brew "unbound"
 # GNU Transport Layer Security (TLS) Library
 brew "gnutls"
 # GNU Emacs text editor
 brew "emacs"
+# Validating, recursive, caching DNS resolver
+brew "unbound"
 # Emacs dependency management
 brew "cask"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
 # Pack, ship and run any application as a lightweight container
 brew "docker", link: false
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.14"
 # Text processing system for reStructuredText
 brew "docutils"
 # Run arbitrary commands when files change
 brew "entr"
+# Modern, maintained replacement for ls
+brew "eza"
 # Play, record, convert, and stream select audio and video codecs
 brew "ffmpeg"
 # Collection of GNU find, xargs, and locate
@@ -60,6 +56,10 @@ brew "gcc"
 brew "gh"
 # OpenType text shaping engine
 brew "harfbuzz"
+# TIFF library and utilities
+brew "libtiff"
+# Image format providing lossless and lossy compression for web images
+brew "webp"
 # Library for JPEG-2000 image manipulation
 brew "openjpeg"
 # Image processing and image analysis library
@@ -86,12 +86,12 @@ brew "golangci-lint"
 brew "grc"
 # Add GitHub support to git on the command-line
 brew "hub"
-# Database of common MIME types
-brew "shared-mime-info"
 # ISO/IEC 23008-12:2017 HEIF file format decoder and encoder
 brew "libheif"
 # Tools and libraries to manipulate images in select formats
 brew "imagemagick"
+# New file format for still image compression
+brew "jpeg-xl"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
 # Subtitle renderer for the ASS/SSA subtitle format
@@ -106,6 +106,8 @@ brew "libzip"
 brew "moreutils", link: false
 # 'traceroute' and 'ping' in a single tool
 brew "mtr"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node", link: false
 # Open-source, cross-platform JavaScript runtime environment
 brew "node@22"
 # Open-source, cross-platform JavaScript runtime environment
@@ -134,6 +136,8 @@ brew "pyenv"
 brew "pygments"
 # Static http server anywhere you need one
 brew "serve"
+# Database of common MIME types
+brew "shared-mime-info"
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
 # Tool Command Language
