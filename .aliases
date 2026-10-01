@@ -60,6 +60,9 @@ alias gr='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup 
 alias master="git checkout master"
 alias main="git checkout main"
 
+#git rebase quit
+alias grbq="git rebase --quit"
+
 # Networking. IP address, dig, DNS
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 # alias dig="dig +nocmd any +multiline +noall +answer"
@@ -89,5 +92,5 @@ alias emptytrash=" \
 
 # Update installed Ruby gems, Homebrew, npm, and their installed packages
 alias brew_update="brew -v update; brew upgrade --force-bottle; brew cleanup; brew upgrade --cask; brew doctor"
-alias update_brew_npm_gem='brew_update; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update --no-document'
+alias brew_update_npm_gem='brew_update; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update --no-document'
 

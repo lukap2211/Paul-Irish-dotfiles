@@ -66,6 +66,7 @@
 [merge]
 	tool = opendiff
 	renameLimit = 0
+	ff = only
 
 # rewrites of repo paths
 [url "git@github.com:"]
@@ -125,3 +126,6 @@
   autosetuprebase = always
 [url "workgit:"]
 	insteadof = https://work.example.com/
+[user]
+	name = lpuharic1
+	email = work@example.com
