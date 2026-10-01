@@ -21,7 +21,7 @@ alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.c
 
 alias ag='ag -f --hidden'
 
-alias ccat='pygmentize -g -f terminal16m -O style=monokai'
+alias ccat='pygmentize -g -f terminal256 -O style=monokai'
 
 ###
 # time to upgrade `ls`. use eza instead of dealing with coreutils, LS_COLORS blah blah
