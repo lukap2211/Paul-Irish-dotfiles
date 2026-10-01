@@ -10,10 +10,10 @@ export LANG="en_US"
 
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
-# here's LS_COLORS
-# github.com/trapd00r/LS_COLORS
-command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
-eval "$(gdircolors -b ~/.dircolors)"
+# eza theme lives in ~/.config/eza/theme.yml (macOS default is ~/Library/Application Support/eza)
+# LS_COLORS would override it (oh-my-zsh sets a default one)
+export EZA_CONFIG_DIR="$HOME/.config/eza"
+unset LS_COLORS
 
 export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
