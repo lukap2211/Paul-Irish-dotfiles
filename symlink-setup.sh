@@ -183,3 +183,7 @@ main() {
 }
 
 main
+
+# eza theme (gruvbox-dark from github.com/eza-community/eza-themes)
+mkdir -p "$HOME/.config/eza"
+execute "ln -fs $(pwd)/eza/theme.yml $HOME/.config/eza/theme.yml" "$HOME/.config/eza/theme.yml → $(pwd)/eza/theme.yml"
