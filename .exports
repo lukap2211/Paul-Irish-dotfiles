@@ -1,3 +1,4 @@
+#!/bin/bash
 # vim as default
 export EDITOR="code"
 

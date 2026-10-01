@@ -1,0 +1,102 @@
+colourful: true
+
+filekinds:
+  normal: {foreground: 255}
+  directory: {foreground: 111}
+  symlink: {foreground: 153}
+  pipe: {foreground: 246}
+  block_device: {foreground: 209}
+  char_device: {foreground: 209}
+  socket: {foreground: 243}
+  special: {foreground: 183}
+  executable: {foreground: 114}
+  mount_point: {foreground: 215}
+
+perms:
+  user_read: {foreground: 255}
+  user_write: {foreground: 179}
+  user_execute_file: {foreground: 114}
+  user_execute_other: {foreground: 114}
+  group_read: {foreground: 255}
+  group_write: {foreground: 179}
+  group_execute: {foreground: 114}
+  other_read: {foreground: 252}
+  other_write: {foreground: 179}
+  other_execute: {foreground: 114}
+  special_user_file: {foreground: 183}
+  special_other: {foreground: 246}
+  attribute: {foreground: 252}
+
+size:
+  major: {foreground: 252}
+  minor: {foreground: 153}
+  number_byte: {foreground: 255}
+  number_kilo: {foreground: 255}
+  number_mega: {foreground: 111}
+  number_giga: {foreground: 183}
+  number_huge: {foreground: 183}
+  unit_byte: {foreground: 252}
+  unit_kilo: {foreground: 111}
+  unit_mega: {foreground: 183}
+  unit_giga: {foreground: 183}
+  unit_huge: {foreground: 215}
+
+users:
+  user_you: {foreground: 255}
+  user_root: {foreground: 209}
+  user_other: {foreground: 183}
+  group_yours: {foreground: 255}
+  group_other: {foreground: 246}
+  group_root: {foreground: 209}
+
+links:
+  normal: {foreground: 153}
+  multi_link_file: {foreground: 215}
+
+git:
+  new: {foreground: 114}
+  modified: {foreground: 179}
+  deleted: {foreground: 209}
+  renamed: {foreground: 153}
+  typechange: {foreground: 183}
+  ignored: {foreground: 246}
+  conflicted: {foreground: 209}
+
+git_repo:
+  branch_main: {foreground: 255}
+  branch_other: {foreground: 183}
+  git_clean: {foreground: 114}
+  git_dirty: {foreground: 209}
+
+security_context:
+  colon: {foreground: 246}
+  user: {foreground: 255}
+  role: {foreground: 183}
+  typ: {foreground: 243}
+  range: {foreground: 183}
+
+file_type:
+  image: {foreground: 179}
+  video: {foreground: 209}
+  music: {foreground: 114}
+  lossless: {foreground: 153}
+  crypto: {foreground: 246}
+  document: {foreground: 255}
+  compressed: {foreground: 183}
+  temp: {foreground: 209}
+  compiled: {foreground: 111}
+  build: {foreground: 246}
+  source: {foreground: 111}
+
+punctuation: {foreground: 246}
+date: {foreground: 179}
+inode: {foreground: 252}
+blocks: {foreground: 243}
+header: {foreground: 255}
+octal: {foreground: 153}
+flags: {foreground: 183}
+
+symlink_path: {foreground: 153}
+control_char: {foreground: 111}
+broken_symlink: {foreground: 209}
+broken_path_overlay: {foreground: 246}

@@ -121,3 +121,28 @@ One-off binaries that aren't via an npm global or homebrew. [git open](https://g
 ### Syntax highlighting for these files
 
 If you edit this stuff, install [Dotfiles Syntax Highlighting](https://github.com/mattbanks/dotfiles-syntax-highlighting-st2) via [Package Control](http://wbond.net/sublime_packages/package_control)
+
+### Colours (eza, ccat, vim)
+
+Everything uses GitHub's dark palette. `ls` is [eza](https://github.com/eza-community/eza), `LS_COLORS` isn't used.
+
+**eza** reads `~/.config/eza/theme.yml`, a symlink to `eza/theme.yml` (set up by `symlink-setup.sh`), which points at one of `eza/themes/`:
+
+* `github-dark-256.yml` (active), `github-dark.yml` (truecolor)
+* `monokai-256.yml`, `monokai.yml`, `gruvbox-dark.yml`, `default.yml`
+
+```bash
+# switch theme (from the repo root)
+ln -sf themes/monokai.yml eza/theme.yml
+
+# try one without switching
+EZA_CONFIG_DIR=/some/dir eza -la   # /some/dir/theme.yml
+```
+
+More themes: [eza-themes](https://github.com/eza-community/eza-themes/tree/main/themes). `.exports` sets `EZA_CONFIG_DIR` (macOS otherwise looks in `~/Library/Application Support/eza`) and unsets `LS_COLORS`, which would override the theme. Per-extension colours go in `EZA_COLORS` (`man eza_colors`).
+
+The `-256` themes use the same palette indices pygments picks, so eza and `ccat` match.
+
+**ccat** is `pygmentize -g -f terminal256 -O style=github-dark`. List styles with `pygmentize -L styles`.
+
+**vim** uses [vim-colors-github](https://github.com/cormacrelf/vim-colors-github) via vim-plug, set after `plug#end()` in `.vimrc`. On a new machine run `:PlugInstall` (`.vim/plugged` is gitignored). `background=dark` picks the dark variant.
