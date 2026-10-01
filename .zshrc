@@ -112,6 +112,9 @@ export PATH=/opt/homebrew/opt/python@3.12/libexec/bin:$PATH
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+# Custom themes/plugins live in the dotfiles repo (resolved via the ~/.zshrc symlink)
+ZSH_CUSTOM="${${(%):-%x}:A:h}/oh-my-zsh"
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME

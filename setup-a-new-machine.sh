@@ -17,7 +17,7 @@ cd ~/migration || exit
 
 # what is worth reinstalling?
 brew leaves              > brew-list.txt    # all top-level brew installs
-brew cask list           > cask-list.txt
+brew list --cask         > cask-list.txt
 npm list -g --depth=0    > npm-g-list.txt
 yarn global ls --depth=0 > yarn-g-list.txt
 
@@ -135,6 +135,7 @@ fi
 # check https://brew.sh/
 
 # install all the things
+# brew.sh runs `brew bundle` on ./Brewfile (also symlinked to ~/Brewfile by symlink-setup.sh)
 ./brew.sh
 ./brew-cask.sh
 
@@ -284,5 +285,4 @@ sh .osx
 # Oh my zsh
 git clone git://github.com/robbyrussell/oh-my-zsh.git "$HOME"/.oh-my-zsh
 
-# Move theme into the rright place after installing and running symlink-setup.sh
-mv lukap2211.zsh-theme "$HOME"/.oh-my-zsh/custom/themes/
+# Custom themes/plugins are loaded from ./oh-my-zsh via ZSH_CUSTOM in .zshrc
