@@ -32,7 +32,7 @@ alias ccat='bat --paging=never'
 export CLICOLOR_FORCE=1
 
 alias ls='eza --classify=auto --color --group-directories-first --sort=extension -A'
-alias la='eza --classify=auto --color --group-directories-first --sort=extension -a -l --octal-permissions --no-permissions'
+alias la='eza --classify=auto --color --group-directories-first --sort=name -a -l --octal-permissions --no-permissions'
 alias lsd='ls -lD' # only directories
 alias tree='eza -T'
 ###
