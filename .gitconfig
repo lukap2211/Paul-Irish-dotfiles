@@ -105,6 +105,7 @@
 [include]
   path = ~/.gitconfig.local
 
+# work identity for repos under ~/workgit, overrides .gitconfig.local
 [includeIf "gitdir:~/workgit/"]
   path = ~/.gitconfig.work
 
@@ -131,6 +132,3 @@
   autosetuprebase = always
 [url "workgit:"]
 	insteadof = https://work.example.com/
-[user]
-	name = lpuharic1
-	email = work@example.com
