@@ -14,11 +14,6 @@ brew bundle --file="$(dirname "$0")/Brewfile"
 
 # Extra setup the Brewfile can't express
 
-# allow mtr to run without sudo (the raw-socket work is done by mtr-packet)
-mtrpacket="$(brew --prefix mtr)/sbin/mtr-packet"
-sudo chown root "$mtrpacket"
-sudo chmod 4755 "$mtrpacket"
-
 # ruby lolcommits (uses imagemagick from the Brewfile)
 sudo gem install lolcommits
 
