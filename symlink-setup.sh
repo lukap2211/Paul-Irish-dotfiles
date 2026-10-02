@@ -215,3 +215,12 @@ if [ -e "$HOME/.config/ghostty" ] && [ "$(readlink "$HOME/.config/ghostty")" != 
 elif [ ! -e "$HOME/.config/ghostty" ]; then
     execute "ln -fs $(pwd)/ghostty $HOME/.config/ghostty" "$HOME/.config/ghostty → $(pwd)/ghostty"
 fi
+
+# iterm loads and saves its settings in iterm/ (it can't use a symlink, so point it at the folder)
+# run before opening iterm, or restart it after
+defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$(pwd)/iterm"
+defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+# save changes back to iterm/ automatically
+defaults write com.googlecode.iterm2 NoSyncNeverRemindPrefsChangesLostForFile -bool true
+defaults write com.googlecode.iterm2 NoSyncNeverRemindPrefsChangesLostForFile_selection -int 2
+print_success "iterm settings → $(pwd)/iterm"

@@ -61,7 +61,7 @@ cp -Rp ~/Library/Application\ Support/Code\ -\ Insider* ~/migration/Library/"App
 # usage logs you've been keeping.
 
 # iTerm settings.
-  # Prefs, General, Use settings from Folder
+  # in the repo (iterm/), symlink-setup.sh points iTerm at it. commit iterm/ before moving
 
 # Finder settings and TotalFinder settings
 #   Not sure how to do this yet. Really want to.

@@ -147,3 +147,5 @@ More themes: [eza-themes](https://github.com/eza-community/eza-themes/tree/main/
 **vim** uses [vim-github-dark](https://github.com/wojciechkepka/vim-github-dark) (`colorscheme ghdark`, closest match to the bat theme) via vim-plug, set after `plug#end()` in `.vimrc` with small overrides for selection/folds. On a new machine run `:PlugInstall` (`.vim/plugged` is gitignored).
 
 **ghostty** reads `~/.config/ghostty`, a symlink to `ghostty/` in this repo (set up by `symlink-setup.sh`). Don't keep a config in `~/Library/Application Support/com.mitchellh.ghostty/`, ghostty loads that one last so it overrides the repo. Check it with `ghostty +validate-config`, reload with cmd+shift+, .
+
+**iTerm** loads its settings from `iterm/com.googlecode.iterm2.plist` ("Load settings from a custom folder" in Settings → General → Settings) and saves changes back there automatically. `symlink-setup.sh` points iTerm at the folder; run it before opening iTerm on a new machine, or restart iTerm after. Changing a setting rewrites the plist, so commit it like any other dotfile.
