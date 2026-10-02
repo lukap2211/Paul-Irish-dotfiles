@@ -8,19 +8,15 @@
 ###  backup old machine's key items
 
 mkdir -p ~/migration/home/
-mkdir -p ~/migration/Library/"Application Support"/
-mkdir -p ~/migration/Library/Preferences/
+mkdir -p ~/migration/Library/"Application Support"/Code/
 
 cd ~/migration || exit
 
 # what is worth reinstalling?
-brew leaves              > brew-list.txt    # all top-level brew installs
-brew list --cask         > cask-list.txt
+# the Brewfile is the list of brew formulae, casks and vscode extensions. this lists anything
+# installed that isn't in it (without --force it only lists), add those to the Brewfile and commit
+brew bundle cleanup --file="$HOME/Brewfile"
 npm list -g --depth=0    > npm-g-list.txt
-yarn global ls --depth=0 > yarn-g-list.txt
-
-# then compare brew-list to what's in `brew.sh`
-#   comm <(sort brew-list.txt) <(sort brew.sh-cleaned-up)
 
 # backup some dotfiles likely not under source control
 # ~/.gitconfig.local is a symlink into this repo (gitignored), so copy the real file
@@ -28,24 +24,20 @@ cp -p "$(readlink ~/.gitconfig.local)" ~/migration/home/.gitconfig.local
 cp -Rp \
     ~/.bash_history \
     ~/.zsh_history \
-    ~/.extra ~/.extra.fish \
-    ~/.gnupg \
-    ~/.nano \
-    ~/.nanorc \
-    ~/.netrc \
+    ~/.extra \
     ~/.ssh \
     ~/.z   \
         ~/migration/home
 
 cp -Rp ~/Documents ~/migration
 
-cp -Rp ~/Library/Preferences/com.tinyspeck.slackmacgap.plist ~/migration/Library/Preferences/
-
 cp -Rp ~/Library/Services ~/migration/Library/ # automator stuff
 cp -Rp ~/Library/Fonts ~/migration/Library/ # all those fonts you've installed
 
-# editor settings & plugins
-cp -Rp ~/Library/Application\ Support/Code\ -\ Insider* ~/migration/Library/"Application Support"
+# vscode settings, keybindings and snippets (extensions are in the Brewfile)
+# skip caches and local history, they're most of the ~1GB
+rsync -a --exclude workspaceStorage --exclude globalStorage --exclude History \
+    ~/Library/Application\ Support/Code/User ~/migration/Library/"Application Support"/Code/
 
 # also consider...
 # random git branches you never pushed anywhere?
