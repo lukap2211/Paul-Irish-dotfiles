@@ -5,47 +5,10 @@ read -n 1
 
 
 ##############################################################################################################
-### backup old machine's key items (run on the old machine)
+### backup old machine's key items (run on the old machine, from this repo)
+# copies everything worth keeping into ~/migration, including user-info.sh with your github user and git identities
 
-mkdir -p ~/migration/home/
-mkdir -p ~/migration/Library/"Application Support"/Code/
-
-cd ~/migration || exit
-
-# what is worth reinstalling?
-# the Brewfile is the list of brew formulae, casks, vscode extensions and npm globals. this lists anything
-# installed that isn't in it (without --force it only lists), add those to the Brewfile and commit
-brew bundle cleanup --file="$HOME/Brewfile"
-
-# dotfiles not under source control
-# ~/.gitconfig.local is a symlink into this repo (gitignored), so copy the real file
-cp -p "$(readlink ~/.gitconfig.local)" ~/migration/home/.gitconfig.local
-cp -Rp \
-    ~/.bash_history \
-    ~/.zsh_history \
-    ~/.extra \
-    ~/.ssh \
-    ~/migration/home
-cp -Rp ~/Library/Application\ Support/zoxide ~/migration/Library/"Application Support"/ # zoxide's directory db
-
-cp -Rp ~/Documents ~/migration
-cp -Rp ~/Pictures ~/migration
-
-cp -Rp ~/Library/Services ~/migration/Library/ # automator stuff
-cp -Rp ~/Library/Fonts ~/migration/Library/    # all those fonts you've installed
-
-# vscode settings, keybindings and snippets (extensions are in the Brewfile)
-# skip caches and local history, they're most of the ~1GB
-rsync -a --exclude workspaceStorage --exclude globalStorage --exclude History \
-    ~/Library/Application\ Support/Code/User ~/migration/Library/"Application Support"/Code/
-
-# also check for
-#   git branches you never pushed anywhere
-#   untracked or gitignored files in your repos you want to keep
-#   uncommitted changes in this repo, iterm/ included (iTerm saves its settings there)
-
-### end of old machine backup
-##############################################################################################################
+./backup-old-machine.sh
 
 
 ##############################################################################################################
@@ -59,6 +22,9 @@ xcode-select --install
 ### restore the backup (copy ~/migration over from the old machine first)
 
 cd ~/migration || exit
+
+# GITHUB_USER, DOTFILES_REPO, PERSONAL_NAME, PERSONAL_EMAIL, WORK_NAME, WORK_EMAIL
+source ~/migration/user-info.sh
 
 cp -Rp \
     home/.bash_history \
@@ -80,13 +46,23 @@ cp -Rp Library/"Application Support"/zoxide ~/Library/"Application Support"/
 ##############################################################################################################
 ### clone this repo (ssh works now that ~/.ssh is back)
 
-mkdir -p ~/GitHub/lukap2211
-git clone --recursive git@github.com:lukap2211/Paul-Irish-dotfiles.git ~/GitHub/lukap2211/Paul-Irish-dotfiles
-cd ~/GitHub/lukap2211/Paul-Irish-dotfiles || exit
+mkdir -p ~/GitHub/"$GITHUB_USER"
+git clone --recursive git@github.com:"$GITHUB_USER/$DOTFILES_REPO".git ~/GitHub/"$GITHUB_USER/$DOTFILES_REPO"
+cd ~/GitHub/"$GITHUB_USER/$DOTFILES_REPO" || exit
 git remote add upstream git@github.com:paulirish/dotfiles.git
 
 # gitignored, lives in the repo and gets symlinked to ~/ by symlink-setup.sh, so it has to be here first
-cp -p ~/migration/home/.gitconfig.local .
+# if the backup has none, create it with the personal identity
+if [ -f ~/migration/home/.gitconfig.local ]; then
+    cp -p ~/migration/home/.gitconfig.local .
+else
+    git config --file .gitconfig.local user.name "$PERSONAL_NAME"
+    git config --file .gitconfig.local user.email "$PERSONAL_EMAIL"
+fi
+
+# the work identity is the [user] block in .gitconfig, set it to the old machine's (no-op if unchanged)
+git config --file .gitconfig user.email "$WORK_EMAIL"
+git config --file .gitconfig user.name "$WORK_NAME"
 
 
 ##############################################################################################################
