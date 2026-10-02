@@ -7,8 +7,9 @@ third_party/WebKit/Source/devtools/front_end/audits2/lighthouse/renderer/report-
 .vim/swaps/*
 .vim/undo
 
-# git credential file
+# git credential files
 .gitconfig.local
+.gitconfig.bloomberg
 
 
 # no thx

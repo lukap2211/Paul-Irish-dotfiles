@@ -105,6 +105,7 @@
 [include]
   path = ~/.gitconfig.local
 
+# work identity for repos under ~/BBGitHub, overrides .gitconfig.local
 [includeIf "gitdir:~/BBGitHub/"]
   path = ~/.gitconfig.bloomberg
 
@@ -131,6 +132,3 @@
   autosetuprebase = always
 [url "bbgithub:"]
 	insteadof = https://bbgithub.dev.bloomberg.com/
-[user]
-	name = lpuharic1
-	email = lpuharic1@bloomberg.net

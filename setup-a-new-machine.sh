@@ -18,8 +18,9 @@ cd ~/migration || exit
 brew bundle cleanup --file="$HOME/Brewfile"
 
 # dotfiles not under source control
-# ~/.gitconfig.local is a symlink into this repo (gitignored), so copy the real file
+# ~/.gitconfig.local and ~/.gitconfig.bloomberg are symlinks into this repo (gitignored), so copy the real files
 cp -p "$(readlink ~/.gitconfig.local)" ~/migration/home/.gitconfig.local
+cp -p "$(readlink ~/.gitconfig.bloomberg)" ~/migration/home/.gitconfig.bloomberg
 cp -Rp \
     ~/.bash_history \
     ~/.zsh_history \
@@ -81,12 +82,12 @@ cp -Rp Library/"Application Support"/Code/User ~/Library/"Application Support"/C
 ### clone this repo (ssh works now that ~/.ssh is back)
 
 mkdir -p ~/GitHub/lukap2211
-git clone git@github.com:lukap2211/Paul-Irish-dotfiles.git ~/GitHub/lukap2211/Paul-Irish-dotfiles
+git clone --recursive git@github.com:lukap2211/Paul-Irish-dotfiles.git ~/GitHub/lukap2211/Paul-Irish-dotfiles
 cd ~/GitHub/lukap2211/Paul-Irish-dotfiles || exit
 git remote add upstream git@github.com:paulirish/dotfiles.git
 
-# gitignored, lives in the repo and gets symlinked to ~/ by symlink-setup.sh, so it has to be here first
-cp -p ~/migration/home/.gitconfig.local .
+# gitignored, live in the repo and get symlinked to ~/ by symlink-setup.sh, so they have to be here first
+cp -p ~/migration/home/.gitconfig.local ~/migration/home/.gitconfig.bloomberg .
 
 
 ##############################################################################################################
@@ -95,12 +96,6 @@ cp -p ~/migration/home/.gitconfig.local .
 # brew.sh runs `brew bundle` on ./Brewfile (also symlinked to ~/Brewfile by symlink-setup.sh)
 
 ./brew.sh
-
-
-##############################################################################################################
-### git
-
-git config user.email "lukap2211@gmail.com"
 
 
 ##############################################################################################################
@@ -123,6 +118,7 @@ git clone https://github.com/ohmyzsh/ohmyzsh.git "$HOME"/.oh-my-zsh
 
 # git credentials live in ~/.gitconfig.local (http://stackoverflow.com/a/13615531/89484)
 # so .gitconfig can be shared across all machines and only the .local changes
+# repos under ~/BBGitHub use the work identity in ~/.gitconfig.bloomberg instead
 
 ./symlink-setup.sh
 
