@@ -31,6 +31,7 @@ cp -Rp \
     home/.zsh_history \
     home/.extra \
     home/.ssh \
+    home/.lolcommits \
     ~/
 chmod 700 ~/.ssh
 chmod 600 ~/.ssh/*
@@ -68,6 +69,7 @@ git config --file .gitconfig user.name "$WORK_NAME"
 ##############################################################################################################
 ### homebrew
 # install homebrew first, see https://brew.sh/
+# on a bloomberg machine bb_bootstrap installs homebrew and node, so skip that and run brew.sh after it
 # brew.sh runs `brew bundle` on ./Brewfile (also symlinked to ~/Brewfile by symlink-setup.sh)
 
 ./brew.sh
@@ -101,3 +103,13 @@ git clone https://github.com/ohmyzsh/ohmyzsh.git "$HOME"/.oh-my-zsh
 vim +PlugInstall +qall
 
 # ~/.ssh/config isn't linked, see .ssh.config.example
+
+
+##############################################################################################################
+### lolcommits
+# brew.sh installs it and ~/.lolcommits came back with the restore. the post-commit hooks don't,
+# so once your repos are cloned again re-enable it in the ones that had it (skips any not cloned yet)
+
+while read -r repo; do
+    [ -d ~/"$repo"/.git ] && (cd ~/"$repo" && lolcommits --enable)
+done < ~/migration/lolcommits-repos.txt
