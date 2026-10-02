@@ -187,3 +187,17 @@ main
 # eza theme (eza/theme.yml symlinks to the active one in eza/themes/)
 mkdir -p "$HOME/.config/eza"
 execute "ln -fs $(pwd)/eza/theme.yml $HOME/.config/eza/theme.yml" "$HOME/.config/eza/theme.yml → $(pwd)/eza/theme.yml"
+
+# bat config and themes (whole folder), then rebuild bat's theme cache
+if [ -e "$HOME/.config/bat" ] && [ "$(readlink "$HOME/.config/bat")" != "$(pwd)/bat" ]; then
+    ask_for_confirmation "'$HOME/.config/bat' already exists, do you want to overwrite it?"
+    if answer_is_yes; then
+        rm -rf "$HOME/.config/bat"
+        execute "ln -fs $(pwd)/bat $HOME/.config/bat" "$HOME/.config/bat → $(pwd)/bat"
+    else
+        print_error "$HOME/.config/bat → $(pwd)/bat"
+    fi
+elif [ ! -e "$HOME/.config/bat" ]; then
+    execute "ln -fs $(pwd)/bat $HOME/.config/bat" "$HOME/.config/bat → $(pwd)/bat"
+fi
+command -v bat >/dev/null 2>&1 && bat cache --build >/dev/null
