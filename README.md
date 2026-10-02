@@ -12,7 +12,7 @@
 * read and run parts of `setup-a-new-machine.sh`
 * read and run `symlink-setup.sh`
   * git config needs attention, read the notes.
-* copy over files that aren't in the repo: `.gitconfig.local` (gitignored, lives in the repo folder), `~/.extra`, `~/.lcldevrc`, `~/.ssh`
+* copy over files that aren't in the repo: `.gitconfig.local` (gitignored, lives in the repo folder), `~/.extra`, `~/.ssh`
 * use it. yay!
 
 #### maintenance
