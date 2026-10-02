@@ -29,7 +29,6 @@ cp -Rp \
     ~/.bash_history \
     ~/.zsh_history \
     ~/.extra ~/.extra.fish \
-    ~/.workdevrc \
     ~/.gnupg \
     ~/.nano \
     ~/.nanorc \
