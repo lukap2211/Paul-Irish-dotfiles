@@ -19,3 +19,7 @@ search-selected-background = #b5d5ff
 
 # copy selections (double-click word, triple-click line, drag) to the system clipboard too
 copy-on-select = clipboard
+
+# search navigation: cmd+g / cmd+shift+g for next / previous match
+keybind = super+g=navigate_search:next
+keybind = super+shift+g=navigate_search:previous
