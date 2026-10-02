@@ -613,7 +613,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'ap/vim-css-color'
 Plug 'bling/vim-airline'
-Plug 'cormacrelf/vim-colors-github'
+Plug 'wojciechkepka/vim-github-dark'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'guns/vim-clojure-static'
 Plug 'joker1007/vim-ruby-heredoc-syntax'
@@ -650,27 +650,14 @@ Plug 'xolox/vim-notes'
 call plug#end()
 
 " colorscheme comes from a plugin, so set it after plug#end
-" github's dark mode has broken 256-colour values (light green cursorline,
-" light blue folds/selection, bright comments), so override them with
-" github dark palette colours and a darker background for more contrast
-augroup github_dark_overrides
+" ghdark's selection is reverse video (bright) and folds are bright blue, tone them down
+augroup ghdark_overrides
   autocmd!
-  autocmd ColorScheme github
-    \  hi Normal       ctermfg=254 ctermbg=233 guifg=#e6edf3 guibg=#0d1117
-    \| hi CursorLine   cterm=NONE  ctermbg=235 gui=NONE guibg=#21262d
-    \| hi CursorColumn             ctermbg=235 guibg=#21262d
-    \| hi CursorLineNr cterm=bold  ctermfg=179 ctermbg=235 gui=bold guifg=#e3b341 guibg=#21262d
-    \| hi LineNr                   ctermfg=242 ctermbg=233 guifg=#6e7681 guibg=#0d1117
-    \| hi SignColumn               ctermfg=242 ctermbg=233 guifg=#6e7681 guibg=#0d1117
-    \| hi FoldColumn               ctermfg=242 ctermbg=233 guifg=#6e7681 guibg=#0d1117
-    \| hi Comment      cterm=italic ctermfg=245 gui=italic guifg=#8b949e
-    \| hi Folded       cterm=NONE  ctermfg=245 ctermbg=234 gui=NONE guifg=#8b949e guibg=#161b22
-    \| hi Visual                   ctermbg=24  guibg=#264f78
-    \| hi MatchParen   cterm=bold  ctermfg=255 ctermbg=24 gui=bold guifg=#ffffff guibg=#264f78
-    \| hi Search       cterm=bold  ctermfg=233 ctermbg=179 gui=bold guifg=#0d1117 guibg=#e3b341
-    \| hi ColorColumn              ctermbg=235 guibg=#21262d
-    \| hi Pmenu                    ctermfg=252 ctermbg=236 guifg=#c9d1d9 guibg=#30363d
-    \| hi PmenuSel                 ctermfg=255 ctermbg=24  guifg=#ffffff guibg=#264f78
+  autocmd ColorScheme ghdark
+    \  hi Visual cterm=NONE ctermbg=24 gui=NONE guibg=#264f78
+    \| hi Folded cterm=NONE ctermfg=243 ctermbg=234 gui=NONE guifg=#89929b guibg=#161b22
 augroup END
-colorscheme github
+colorscheme ghdark
+" ghdark's airline theme has no inactive palette and breaks the tabline
+let g:airline_theme = 'dark'
 " }}}
