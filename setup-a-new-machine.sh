@@ -56,6 +56,40 @@ xcode-select --install
 
 
 ##############################################################################################################
+### restore the backup (copy ~/migration over from the old machine first)
+
+cd ~/migration || exit
+
+cp -Rp \
+    home/.bash_history \
+    home/.zsh_history \
+    home/.extra \
+    home/.ssh \
+    home/.z \
+    ~/
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/*
+chmod 644 ~/.ssh/*.pub
+
+cp -Rp Documents Pictures ~/
+cp -Rp Library/Services Library/Fonts ~/Library/
+mkdir -p ~/Library/"Application Support"/Code/
+cp -Rp Library/"Application Support"/Code/User ~/Library/"Application Support"/Code/
+
+
+##############################################################################################################
+### clone this repo (ssh works now that ~/.ssh is back)
+
+mkdir -p ~/GitHub/lukap2211
+git clone git@github.com:lukap2211/Paul-Irish-dotfiles.git ~/GitHub/lukap2211/Paul-Irish-dotfiles
+cd ~/GitHub/lukap2211/Paul-Irish-dotfiles || exit
+git remote add upstream git@github.com:paulirish/dotfiles.git
+
+# gitignored, lives in the repo and gets symlinked to ~/ by symlink-setup.sh, so it has to be here first
+cp -p ~/migration/home/.gitconfig.local .
+
+
+##############################################################################################################
 ### homebrew
 # install homebrew first, see https://brew.sh/
 # brew.sh runs `brew bundle` on ./Brewfile (also symlinked to ~/Brewfile by symlink-setup.sh)
@@ -76,6 +110,15 @@ sh .osx
 
 
 ##############################################################################################################
+### zsh
+# the login shell is macOS's /bin/zsh (the default), nothing to change
+
+# oh my zsh. custom themes/plugins are loaded from ./oh-my-zsh via ZSH_CUSTOM in .zshrc
+# install before the symlinks, the linked .zshrc sources it
+git clone https://github.com/ohmyzsh/ohmyzsh.git "$HOME"/.oh-my-zsh
+
+
+##############################################################################################################
 ### symlinks to link dotfiles into ~/
 
 # git credentials live in ~/.gitconfig.local (http://stackoverflow.com/a/13615531/89484)
@@ -87,11 +130,3 @@ sh .osx
 vim +PlugInstall +qall
 
 # ~/.ssh/config isn't linked, see .ssh.config.example
-
-
-##############################################################################################################
-### zsh
-# the login shell is macOS's /bin/zsh (the default), nothing to change
-
-# oh my zsh. custom themes/plugins are loaded from ./oh-my-zsh via ZSH_CUSTOM in .zshrc
-git clone https://github.com/ohmyzsh/ohmyzsh.git "$HOME"/.oh-my-zsh
