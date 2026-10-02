@@ -47,12 +47,12 @@
 	new = green bold
 	whitespace = red reverse
     newMoved = cyan
-    oldMoved = blue
+	oldmoved = blue
 [color "diff-highlight"]
 	oldNormal = red bold
-	oldHighlight = "red bold 52"
+	oldhighlight = red bold 52
 	newNormal = "green bold"
-	newHighlight = "green bold 22"
+	newhighlight = green bold 22
 [color "branch"]
 	current = yellow reverse
 	local = yellow
