@@ -13,10 +13,9 @@ mkdir -p ~/migration/Library/"Application Support"/Code/
 cd ~/migration || exit
 
 # what is worth reinstalling?
-# the Brewfile is the list of brew formulae, casks and vscode extensions. this lists anything
+# the Brewfile is the list of brew formulae, casks, vscode extensions and npm globals. this lists anything
 # installed that isn't in it (without --force it only lists), add those to the Brewfile and commit
 brew bundle cleanup --file="$HOME/Brewfile"
-npm list -g --depth=0 > npm-g-list.txt
 
 # dotfiles not under source control
 # ~/.gitconfig.local is a symlink into this repo (gitignored), so copy the real file
@@ -62,22 +61,6 @@ xcode-select --install
 # brew.sh runs `brew bundle` on ./Brewfile (also symlinked to ~/Brewfile by symlink-setup.sh)
 
 ./brew.sh
-
-
-##############################################################################################################
-### npm globals
-
-# Type `git open` to open the GitHub page or website for a repository.
-npm install -g git-open
-
-# fancy listing of recent branches
-npm install -g git-recent
-
-# sexy git diffs (.gitconfig pipes diff/show through it)
-npm install -g diff-so-fancy
-
-# trash as the safe `rm` alternative
-npm install -g trash-cli
 
 
 ##############################################################################################################

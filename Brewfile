@@ -36,6 +36,8 @@ brew "unbound"
 brew "cask"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
+# Good-lookin' diffs with diff-highlight and more (.gitconfig pipes diff/show through it)
+brew "diff-so-fancy"
 # Pack, ship and run any application as a lightweight container
 brew "docker", link: false
 # Text processing system for reStructuredText
@@ -228,7 +230,10 @@ npm "@typescript/analyze-trace"
 npm "bms-platform-config"
 npm "bms-platform-vscode"
 npm "corepack"
+npm "git-open"
+npm "git-recent"
 npm "npm-check-updates"
 npm "rde-cli"
 npm "rdetools"
+npm "trash-cli"
 npm "typescript"
