@@ -54,8 +54,7 @@ cp -Rp ~/.lolcommits ~/migration/home
 find ~/GitHub ~/workgit -maxdepth 5 -path '*/.git/hooks/post-commit' -exec grep -l lolcommits {} + 2>/dev/null \
     | sed -e 's#/\.git/hooks/post-commit$##' -e "s#^$HOME/##" > ~/migration/lolcommits-repos.txt
 
-cp -Rp ~/Documents ~/migration
-cp -Rp ~/Pictures ~/migration
+# Documents and Desktop aren't copied, they sync via iCloud
 
 cp -Rp ~/Library/Services ~/migration/Library/ # automator stuff
 cp -Rp ~/Library/Fonts ~/migration/Library/    # all those fonts you've installed

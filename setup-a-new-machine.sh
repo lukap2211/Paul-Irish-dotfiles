@@ -37,7 +37,7 @@ chmod 700 ~/.ssh
 chmod 600 ~/.ssh/*
 chmod 644 ~/.ssh/*.pub
 
-cp -Rp Documents Pictures ~/
+# Documents and Desktop come back via iCloud, sign in to it to start the sync
 cp -Rp Library/Services Library/Fonts ~/Library/
 mkdir -p ~/Library/"Application Support"/Code/
 cp -Rp Library/"Application Support"/Code/User ~/Library/"Application Support"/Code/
