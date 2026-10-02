@@ -10,3 +10,6 @@ palette = 1=#e8331c
 palette = 4=#5060ff
 palette = 52=#781010
 palette = 22=#0b6416
+
+# copy selections (double-click word, triple-click line, drag) to the system clipboard too
+copy-on-select = clipboard
