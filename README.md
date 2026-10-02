@@ -75,7 +75,7 @@ Lastly, I use `open .` to open Finder from this path. (That's just available nor
 * `setup-a-new-machine.sh` - random apps i need installed
 * `symlink-setup.sh`  - sets up symlinks for all dotfiles and vim config.
 * `.osx` - run on a fresh osx setup
-* `brew.sh` & `brew-cask.sh` - homebrew initialization
+* `brew.sh` - homebrew initialization (`brew bundle` on `Brewfile`)
 
 #### git, brah
 * `.git`

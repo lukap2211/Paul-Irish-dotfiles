@@ -10,8 +10,6 @@
 mkdir -p ~/migration/home/
 mkdir -p ~/migration/Library/"Application Support"/
 mkdir -p ~/migration/Library/Preferences/
-mkdir -p ~/migration/Library/Application Support/
-mkdir -p ~/migration/rootLibrary/Preferences/SystemConfiguration/
 
 cd ~/migration || exit
 
@@ -25,10 +23,13 @@ yarn global ls --depth=0 > yarn-g-list.txt
 #   comm <(sort brew-list.txt) <(sort brew.sh-cleaned-up)
 
 # backup some dotfiles likely not under source control
+# ~/.gitconfig.local is a symlink into this repo (gitignored), so copy the real file
+cp -p "$(readlink ~/.gitconfig.local)" ~/migration/home/.gitconfig.local
 cp -Rp \
     ~/.bash_history \
+    ~/.zsh_history \
     ~/.extra ~/.extra.fish \
-    ~/.gitconfig.local \
+    ~/.lcldevrc \
     ~/.gnupg \
     ~/.nano \
     ~/.nanorc \
@@ -39,16 +40,12 @@ cp -Rp \
 
 cp -Rp ~/Documents ~/migration
 
-cp -Rp /Library/Preferences/SystemConfiguration/com.apple.airport.preferences.plist ~/migration/rootLibrary/Preferences/SystemConfiguration/ # wifi
-
-cp -Rp ~/Library/Preferences/net.limechat.LimeChat.plist ~/migration/Library/Preferences/
 cp -Rp ~/Library/Preferences/com.tinyspeck.slackmacgap.plist ~/migration/Library/Preferences/
 
 cp -Rp ~/Library/Services ~/migration/Library/ # automator stuff
 cp -Rp ~/Library/Fonts ~/migration/Library/ # all those fonts you've installed
 
 # editor settings & plugins
-cp -Rp ~/Library/Application\ Support/Sublime\ Text\ * ~/migration/Library/"Application Support"
 cp -Rp ~/Library/Application\ Support/Code\ -\ Insider* ~/migration/Library/"Application Support"
 
 # also consider...
@@ -73,7 +70,6 @@ cp -Rp ~/Library/Application\ Support/Code\ -\ Insider* ~/migration/Library/"App
 #     pbpaste > timestats-canary.json.txt
 
 # software licenses.
-#   sublimetext's is in its Application Support folder
 
 # maybe ~/Pictures and such
 cp -Rp ~/Pictures ~/migration
@@ -85,40 +81,9 @@ cp -Rp ~/Pictures ~/migration
 
 ##############################################################################################################
 ### XCode Command Line Tools
-#      thx https://github.com/alrra/dotfiles/blob/ff123ca9b9b/os/os_x/installs/install_xcode.sh
+# git, make, clang etc. the homebrew installer also does this if they're missing
 
-if ! xcode-select --print-path &> /dev/null; then
-
-    # Prompt user to install the XCode Command Line Tools
-    xcode-select --install &> /dev/null
-
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    # Wait until the XCode Command Line Tools are installed
-    until xcode-select --print-path &> /dev/null; do
-        sleep 5
-    done
-
-    print_result $? 'Install XCode Command Line Tools'
-
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    # Point the `xcode-select` developer directory to
-    # the appropriate directory from within `Xcode.app`
-    # https://github.com/alrra/dotfiles/issues/13
-
-    sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
-    print_result $? 'Make "xcode-select" developer directory point to Xcode'
-
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    # Prompt user to agree to the terms of the Xcode license
-    # https://github.com/alrra/dotfiles/issues/10
-
-    sudo xcodebuild -license
-    print_result $? 'Agree with the XCode Command Line Tools licence'
-
-fi
+xcode-select --install
 ###
 ##############################################################################################################
 
@@ -137,7 +102,6 @@ fi
 # install all the things
 # brew.sh runs `brew bundle` on ./Brewfile (also symlinked to ~/Brewfile by symlink-setup.sh)
 ./brew.sh
-./brew-cask.sh
 
 ### end of homebrew
 ##############################################################################################################
@@ -208,34 +172,6 @@ echo "$BASH_VERSION" # should be 4.x not the old 3.2.X
 
 
 
-# improve perf of git inside of chromium checkout
-# https://chromium.googlesource.com/chromium/src/+/master/docs/mac_build_instructions.md
-
-# default is (257*1024)
-sudo sysctl kern.maxvnodes=$((512*1024))
-echo kern.maxvnodes=$((512*1024)) | sudo tee -a /etc/sysctl.conf
-
-# https://facebook.github.io/watchman/docs/install.html#mac-os-file-descriptor-limits
-sudo sysctl -w kern.maxfiles=$((10*1024*1024))
-sudo sysctl -w kern.maxfilesperproc=$((1024*1024))
-echo kern.maxfiles=$((10*1024*1024)) | sudo tee -a /etc/sysctl.conf
-echo kern.maxfilesperproc=$((1024*1024)) | sudo tee -a /etc/sysctl.conf
-
-
-# speed up git status (to run only in chromium repo)
-git config status.showuntrackedfiles no
-git update-index --untracked-cache
-
-
-# !! EHHH. to be honest i tried this and it seems to be slow me down.
-# use watchman with git 2.17 for src changes
-# https://blog.github.com/2018-04-05-git-217-released/#speeding-up-status-with-watchman
-#    brew install watchman
-#    cd ~/chromium/src
-#    curl -o .git/hooks/query-watchman https://raw.githubusercontent.com/git/git/master/templates/hooks--fsmonitor-watchman.sample
-#    git config core.fsmonitor .git/hooks/query-watchman
-
-# also this unrelated thing
 git config user.email "lukap2211@gmail.com"
 
 
