@@ -36,7 +36,7 @@ brew "unbound"
 brew "cask"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
-# Good-lookin' diffs with diff-highlight and more (.gitconfig pipes diff/show through it)
+# Good-lookin' diffs with diff-highlight and more
 brew "diff-so-fancy"
 # Pack, ship and run any application as a lightweight container
 brew "docker", link: false
