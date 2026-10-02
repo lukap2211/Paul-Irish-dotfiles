@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# ~/.osx
-# paul's slight fork of https://mths.be/osx, trimmed to what still works on current macOS (Apple Silicon)
-# run with `bash .osx`. it's safe to run again.
+# ~/.macos
+# paul's slight fork of https://mths.be/macos, trimmed to what still works on current macOS (Apple Silicon)
+# run with `bash .macos`. it's safe to run again.
 
 
 # FWIW, this `defaults find` is good at finding some set preferences.
@@ -14,7 +14,7 @@ osascript -e 'if application id "com.apple.systempreferences" is running then te
 # Ask for the administrator password upfront
 sudo -v
 
-# Keep-alive: update existing `sudo` time stamp until `.osx` has finished
+# Keep-alive: update existing `sudo` time stamp until `.macos` has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ###############################################################################

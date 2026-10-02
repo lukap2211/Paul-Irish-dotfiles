@@ -75,7 +75,7 @@ Lastly, I use `open .` to open Finder from this path. (That's just available nor
 * `setup-a-new-machine.sh` - random apps i need installed
 * `backup-old-machine.sh` - backs up the old machine into `~/migration` (plus `user-info.sh` with github user and git identities) for `setup-a-new-machine.sh` to restore
 * `symlink-setup.sh`  - sets up symlinks for all dotfiles and vim config.
-* `.osx` - run on a fresh osx setup
+* `.macos` - run on a fresh macOS setup
 * `brew.sh` - homebrew initialization (`brew bundle` on `Brewfile`)
 
 #### git, brah
@@ -112,7 +112,7 @@ export PATH
 Mathias's repo is the canonical for this, but you should probably run his or mine after reviewing it.
 
 ```bash
-./.osx
+./.macos
 ```
 
 ### `~/bin`
