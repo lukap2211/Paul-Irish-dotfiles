@@ -168,17 +168,9 @@ brew "zsh-syntax-highlighting"
 cask "bruno"
 # App to build and share containerised applications and microservices
 cask "docker-desktop"
-# Client for the Dropbox cloud storage service
-cask "dropbox"
 cask "font-symbols-only-nerd-font"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
-# Desktop client for GitHub repositories
-cask "github"
-# Utility to compress 24-bit PNG files
-cask "imagealpha"
-# Tool to optimise images to a smaller size
-cask "imageoptim"
 # Terminal emulator as alternative to Apple's Terminal app
 cask "iterm2"
 # Free cross-platform office suite, fresh version
