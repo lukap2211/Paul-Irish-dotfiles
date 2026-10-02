@@ -11,5 +11,11 @@ palette = 4=#5060ff
 palette = 52=#781010
 palette = 22=#0b6416
 
+# search highlight like iTerm (lukap profile): yellow matches, the current match looks like a selection
+search-foreground = #000000
+search-background = #fffb00
+search-selected-foreground = #000000
+search-selected-background = #b5d5ff
+
 # copy selections (double-click word, triple-click line, drag) to the system clipboard too
 copy-on-select = clipboard
