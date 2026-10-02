@@ -71,11 +71,10 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 
 
-# z beats cd most of the time. `brew install z`
-if which brew > /dev/null; then
-    zpath="$(brew --prefix)/etc/profile.d/z.sh"
-    [ -s $zpath ] && source $zpath
-fi;
+# zoxide beats cd most of the time: `z foo`, or `zi` to pick with fzf. .zshrc sources this file too
+if command -v zoxide > /dev/null; then
+    eval "$(zoxide init "$([[ -n "$ZSH_VERSION" ]] && echo zsh || echo bash)")"
+fi
 
 ##
 ## Completion…
