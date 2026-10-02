@@ -26,8 +26,8 @@ cp -Rp \
     ~/.zsh_history \
     ~/.extra \
     ~/.ssh \
-    ~/.z \
     ~/migration/home
+cp -Rp ~/Library/Application\ Support/zoxide ~/migration/Library/"Application Support"/ # zoxide's directory db
 
 cp -Rp ~/Documents ~/migration
 cp -Rp ~/Pictures ~/migration
@@ -66,7 +66,6 @@ cp -Rp \
     home/.zsh_history \
     home/.extra \
     home/.ssh \
-    home/.z \
     ~/
 chmod 700 ~/.ssh
 chmod 600 ~/.ssh/*
@@ -76,6 +75,7 @@ cp -Rp Documents Pictures ~/
 cp -Rp Library/Services Library/Fonts ~/Library/
 mkdir -p ~/Library/"Application Support"/Code/
 cp -Rp Library/"Application Support"/Code/User ~/Library/"Application Support"/Code/
+cp -Rp Library/"Application Support"/zoxide ~/Library/"Application Support"/
 
 
 ##############################################################################################################

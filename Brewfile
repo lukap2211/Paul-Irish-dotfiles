@@ -156,10 +156,10 @@ brew "tldr"
 brew "tree"
 # Internet file retriever
 brew "wget"
-# Tracks most-used directories to make cd smarter
-brew "z"
 # General-purpose lossless data-compression library
 brew "zlib"
+# Shell extension to navigate your filesystem faster
+brew "zoxide"
 # UNIX shell (command interpreter)
 brew "zsh"
 # Fish-like fast/unobtrusive autosuggestions for zsh

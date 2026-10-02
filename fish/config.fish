@@ -9,6 +9,7 @@ source ~/.config/fish/chpwd.fish
 source ~/.config/fish/functions.fish
 source ~/.config/fish/chromium.fish
 source ~/.config/fish/conf.d/scmpuff.fish
+command -q zoxide; and zoxide init fish | source
 
 # for things not checked into git..
 if test -e "$HOME/.extra.fish";
