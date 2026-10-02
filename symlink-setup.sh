@@ -75,7 +75,7 @@ link() {
 # all .dotfiles at the top of the repo, except the repo's own git files and examples
 for file in $(find . -maxdepth 1 -type f -name ".*" \
         -not -name .DS_Store \
-        -not -name .osx \
+        -not -name .macos \
         -not -name .gitignore \
         -not -name .gitmodules \
         -not -name .ssh.config.example \
