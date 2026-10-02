@@ -108,8 +108,6 @@ brew "librist"
 brew "libzip"
 # Collection of tools that nobody wrote when UNIX was young
 brew "moreutils", link: false
-# 'traceroute' and 'ping' in a single tool
-brew "mtr"
 # Open-source, cross-platform JavaScript runtime environment
 brew "node", link: false
 # Open-source, cross-platform JavaScript runtime environment
