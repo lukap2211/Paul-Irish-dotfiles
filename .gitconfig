@@ -101,14 +101,6 @@
 	default = current
 	followTags = true
 
-# use separate file for username / github token / etc
-[include]
-  path = ~/.gitconfig.local
-
-# work identity for repos under ~/BBGitHub, overrides .gitconfig.local
-[includeIf "gitdir:~/BBGitHub/"]
-  path = ~/.gitconfig.bloomberg
-
 [init]
 	defaultBranch = main
 
@@ -132,3 +124,11 @@
   autosetuprebase = always
 [url "bbgithub:"]
 	insteadof = https://bbgithub.dev.bloomberg.com/
+# work identity by default
+[user]
+	name = lpuharic1
+	email = lpuharic1@bloomberg.net
+
+# personal identity / github token / etc for repos under ~/GitHub, overrides the work [user] above
+[includeIf "gitdir:~/GitHub/"]
+  path = ~/.gitconfig.local

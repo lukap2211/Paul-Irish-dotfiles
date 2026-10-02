@@ -18,9 +18,8 @@ cd ~/migration || exit
 brew bundle cleanup --file="$HOME/Brewfile"
 
 # dotfiles not under source control
-# ~/.gitconfig.local and ~/.gitconfig.bloomberg are symlinks into this repo (gitignored), so copy the real files
+# ~/.gitconfig.local is a symlink into this repo (gitignored), so copy the real file
 cp -p "$(readlink ~/.gitconfig.local)" ~/migration/home/.gitconfig.local
-cp -p "$(readlink ~/.gitconfig.bloomberg)" ~/migration/home/.gitconfig.bloomberg
 cp -Rp \
     ~/.bash_history \
     ~/.zsh_history \
@@ -86,8 +85,8 @@ git clone --recursive git@github.com:lukap2211/Paul-Irish-dotfiles.git ~/GitHub/
 cd ~/GitHub/lukap2211/Paul-Irish-dotfiles || exit
 git remote add upstream git@github.com:paulirish/dotfiles.git
 
-# gitignored, live in the repo and get symlinked to ~/ by symlink-setup.sh, so they have to be here first
-cp -p ~/migration/home/.gitconfig.local ~/migration/home/.gitconfig.bloomberg .
+# gitignored, lives in the repo and gets symlinked to ~/ by symlink-setup.sh, so it has to be here first
+cp -p ~/migration/home/.gitconfig.local .
 
 
 ##############################################################################################################
@@ -118,7 +117,7 @@ git clone https://github.com/ohmyzsh/ohmyzsh.git "$HOME"/.oh-my-zsh
 
 # git credentials live in ~/.gitconfig.local (http://stackoverflow.com/a/13615531/89484)
 # so .gitconfig can be shared across all machines and only the .local changes
-# repos under ~/BBGitHub use the work identity in ~/.gitconfig.bloomberg instead
+# .gitconfig has the work identity, ~/.gitconfig.local (personal) is only used for repos under ~/GitHub
 
 ./symlink-setup.sh
 
