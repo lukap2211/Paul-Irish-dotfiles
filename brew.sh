@@ -2,6 +2,8 @@
 
 # Install command-line tools using Homebrew
 # The Brewfile is the source of truth for formulae/casks/extensions -- add new installs there.
+# Homebrew itself isn't installed here: on a work machine the work bootstrap installs homebrew and node,
+# otherwise see https://brew.sh/
 
 # Make sure we’re using the latest Homebrew
 brew update

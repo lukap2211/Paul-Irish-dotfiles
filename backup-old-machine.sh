@@ -48,6 +48,12 @@ cp -Rp \
     ~/migration/home
 cp -Rp ~/Library/Application\ Support/zoxide ~/migration/Library/"Application Support"/ # zoxide's directory db
 
+# lolcommits: photos and per-repo config live in ~/.lolcommits, the post-commit hooks live in each repo's .git
+# so also list the repos (relative to ~) that have it enabled, setup-a-new-machine.sh re-enables them
+cp -Rp ~/.lolcommits ~/migration/home
+find ~/GitHub ~/workgit -maxdepth 5 -path '*/.git/hooks/post-commit' -exec grep -l lolcommits {} + 2>/dev/null \
+    | sed -e 's#/\.git/hooks/post-commit$##' -e "s#^$HOME/##" > ~/migration/lolcommits-repos.txt
+
 cp -Rp ~/Documents ~/migration
 cp -Rp ~/Pictures ~/migration
 
