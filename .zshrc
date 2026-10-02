@@ -11,6 +11,9 @@ bindkey -v
 # fpath=( "$HOME/.zfunctions" $fpath )
 fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
 
+# drop duplicate PATH entries (nested shells, brew shellenv in .workdevrc too)
+typeset -U path PATH
+
 
 # ! MAKE SURE ARM64 Brew is used
 # which brew                                                                                                                                                          <aws:blpsaml>
@@ -99,11 +102,8 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-export PATH="/usr/local/sbin:$PATH"
-
-# python3 unversioned symlinks
-export PATH=/opt/homebrew/opt/python@3.12/libexec/bin:$PATH
+# python3 unversioned symlinks (python, pip), follows the installed python@3
+export PATH=/opt/homebrew/opt/python@3/libexec/bin:$PATH
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -174,7 +174,6 @@ export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
 
 source ~/.workdevrc
 
-PATH=~/.console-ninja/.bin:$PATH
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/lpuharic1/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/lpuharic1/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
