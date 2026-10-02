@@ -56,6 +56,19 @@ find ~/GitHub ~/workgit -maxdepth 5 -path '*/.git/hooks/post-commit' -exec grep 
 
 # Documents and Desktop aren't copied, they sync via iCloud
 
+# claude code: user settings, plugins, per-project memory and the user-scoped MCP servers
+# skips conversation transcripts, history and caches. the login is in the keychain, run /login on the new machine
+mkdir -p ~/migration/home/.claude
+cp -p ~/.claude/settings.json ~/migration/home/.claude/
+for f in CLAUDE.md keybindings.json agents commands skills hooks output-styles plugins; do
+    [ -e ~/.claude/"$f" ] && cp -Rp ~/.claude/"$f" ~/migration/home/.claude/
+done
+# memory dirs are keyed by project path (projects/-Users-<you>-.../memory), so they match if the paths do
+(cd ~/.claude && find projects -mindepth 2 -maxdepth 2 -type d -name memory -exec rsync -aR {} ~/migration/home/.claude/ \;)
+# ~/.claude.json also holds a machine id and caches, so only take mcpServers
+python3 -c 'import json, os, sys; json.dump({"mcpServers": json.load(open(os.path.expanduser("~/.claude.json"))).get("mcpServers", {})}, sys.stdout, indent=2)' \
+    > ~/migration/home/claude-mcp-servers.json
+
 cp -Rp ~/Library/Services ~/migration/Library/ # automator stuff
 cp -Rp ~/Library/Fonts ~/migration/Library/    # all those fonts you've installed
 

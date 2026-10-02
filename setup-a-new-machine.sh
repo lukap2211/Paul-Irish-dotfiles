@@ -38,6 +38,18 @@ chmod 600 ~/.ssh/*
 chmod 644 ~/.ssh/*.pub
 
 # Documents and Desktop come back via iCloud, sign in to it to start the sync
+
+# claude code settings, plugins and memory, then merge the MCP servers into ~/.claude.json (created if missing)
+# run /login in claude afterwards, the login isn't migrated
+mkdir -p ~/.claude
+cp -Rp home/.claude/. ~/.claude/
+python3 - <<'EOF'
+import json, os
+path = os.path.expanduser("~/.claude.json")
+config = json.load(open(path)) if os.path.exists(path) else {}
+config.setdefault("mcpServers", {}).update(json.load(open("home/claude-mcp-servers.json"))["mcpServers"])
+json.dump(config, open(path, "w"), indent=2)
+EOF
 cp -Rp Library/Services Library/Fonts ~/Library/
 mkdir -p ~/Library/"Application Support"/Code/
 cp -Rp Library/"Application Support"/Code/User ~/Library/"Application Support"/Code/
