@@ -1,0 +1,5 @@
+# bat config, symlinked to ~/.config/bat (see symlink-setup.sh)
+# themes in ./themes need `bat cache --build` after changes
+
+--theme="GitHub Dark"
+--italic-text=always

@@ -189,8 +189,6 @@ git clone https://github.com/thebitguru/play-button-itunes-patch ~/code/play-but
 # 	* then you grab public URL and send off your video message in a heartbeat.
 
 
-# for the c alias (syntax highlighted cat)
-# sudo easy_install Pygments
 
 
 # change to bash 4 (installed by homebrew)

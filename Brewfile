@@ -20,6 +20,8 @@ brew "python@3.14"
 brew "awscli"
 # Microsoft Azure CLI 2.0
 brew "azure-cli"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
 # Core application library for C
 brew "glib"
 # GNU File, Shell, and Text utilities
@@ -132,8 +134,6 @@ brew "pure"
 brew "pv"
 # Python version management
 brew "pyenv"
-# Generic syntax highlighter
-brew "pygments"
 # Static http server anywhere you need one
 brew "serve"
 # Database of common MIME types

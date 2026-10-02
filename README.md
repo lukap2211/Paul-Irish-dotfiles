@@ -141,8 +141,6 @@ EZA_CONFIG_DIR=/some/dir eza -la   # /some/dir/theme.yml
 
 More themes: [eza-themes](https://github.com/eza-community/eza-themes/tree/main/themes). `.exports` sets `EZA_CONFIG_DIR` (macOS otherwise looks in `~/Library/Application Support/eza`) and unsets `LS_COLORS`, which would override the theme. Per-extension colours go in `EZA_COLORS` (`man eza_colors`).
 
-The `-256` themes use the same palette indices pygments picks, so eza and `ccat` match.
-
-**ccat** is `pygmentize -g -f terminal256 -O style=github-dark`. List styles with `pygmentize -L styles`.
+**ccat** is [bat](https://github.com/sharkdp/bat) (`bat --paging=never`). `~/.config/bat` is a symlink to `bat/` in this repo; `bat/config` picks the theme and `bat/themes/GitHub Dark.tmTheme` is a custom theme with the same colours as eza. Run `bat cache --build` after changing a theme, list themes with `bat --list-themes`.
 
 **vim** uses [vim-colors-github](https://github.com/cormacrelf/vim-colors-github) via vim-plug, set after `plug#end()` in `.vimrc`. On a new machine run `:PlugInstall` (`.vim/plugged` is gitignored). `background=dark` picks the dark variant.
