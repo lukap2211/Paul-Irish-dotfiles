@@ -62,6 +62,13 @@
 	changed = green
 	untracked = cyan
 
+# colour blame metadata by age: old = dim grey ... last week = green (github dark palette)
+[blame]
+	coloring = highlightRecent
+	date = relative
+[color "blame"]
+	highlightRecent = 243, 18 month ago, 246, 6 month ago, 252, 1 month ago, 111, 1 week ago, 114
+
 # git mergetool
 [merge]
 	tool = opendiff
