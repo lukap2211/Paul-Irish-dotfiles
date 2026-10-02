@@ -281,6 +281,6 @@ sh .osx
 
 
 # Oh my zsh
-git clone git://github.com/robbyrussell/oh-my-zsh.git "$HOME"/.oh-my-zsh
+git clone https://github.com/ohmyzsh/ohmyzsh.git "$HOME"/.oh-my-zsh
 
 # Custom themes/plugins are loaded from ./oh-my-zsh via ZSH_CUSTOM in .zshrc

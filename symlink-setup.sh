@@ -201,3 +201,17 @@ elif [ ! -e "$HOME/.config/bat" ]; then
     execute "ln -fs $(pwd)/bat $HOME/.config/bat" "$HOME/.config/bat → $(pwd)/bat"
 fi
 command -v bat >/dev/null 2>&1 && bat cache --build >/dev/null
+
+# ghostty config (whole folder). ghostty also reads ~/Library/Application Support/com.mitchellh.ghostty/config
+# and that one wins, so don't keep a config there
+if [ -e "$HOME/.config/ghostty" ] && [ "$(readlink "$HOME/.config/ghostty")" != "$(pwd)/ghostty" ]; then
+    ask_for_confirmation "'$HOME/.config/ghostty' already exists, do you want to overwrite it?"
+    if answer_is_yes; then
+        rm -rf "$HOME/.config/ghostty"
+        execute "ln -fs $(pwd)/ghostty $HOME/.config/ghostty" "$HOME/.config/ghostty → $(pwd)/ghostty"
+    else
+        print_error "$HOME/.config/ghostty → $(pwd)/ghostty"
+    fi
+elif [ ! -e "$HOME/.config/ghostty" ]; then
+    execute "ln -fs $(pwd)/ghostty $HOME/.config/ghostty" "$HOME/.config/ghostty → $(pwd)/ghostty"
+fi

@@ -172,7 +172,7 @@ export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
 
 
 
-source ~/.lcldevrc
+[ -r ~/.lcldevrc ] && source ~/.lcldevrc
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/lpuharic1/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/lpuharic1/Downloads/google-cloud-sdk/path.zsh.inc'; fi

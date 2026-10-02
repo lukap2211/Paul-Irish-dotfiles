@@ -1,0 +1,12 @@
+font-family = "Monaco"
+font-size = 12
+theme = "iTerm2 Default"
+bold-is-bright = true
+macos-icon = retro
+
+
+# Contrast tweaks for git colors (see ~/.gitconfig)
+palette = 1=#e8331c
+palette = 4=#5060ff
+palette = 52=#781010
+palette = 22=#0b6416
