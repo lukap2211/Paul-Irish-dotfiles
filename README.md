@@ -8,10 +8,11 @@
 #### installing & using
 
 * fork this to your own acct
-* clone that repo
+* clone that repo with submodules: `git clone --recursive` (or `git submodule update --init` after). `fish/functions/pure` uses ssh, so set up `~/.ssh` first
 * read and run parts of `setup-a-new-machine.sh`
 * read and run `symlink-setup.sh`
   * git config needs attention, read the notes.
+* copy over files that aren't in the repo: `.gitconfig.local` (gitignored, lives in the repo folder), `~/.extra`, `~/.workdevrc`, `~/.ssh`
 * use it. yay!
 
 #### maintenance
@@ -144,3 +145,5 @@ More themes: [eza-themes](https://github.com/eza-community/eza-themes/tree/main/
 **ccat** is [bat](https://github.com/sharkdp/bat) (`bat --paging=never`). `~/.config/bat` is a symlink to `bat/` in this repo; `bat/config` picks the theme and `bat/themes/GitHub Dark.tmTheme` is a custom theme with the same colours as eza. Run `bat cache --build` after changing a theme, list themes with `bat --list-themes`.
 
 **vim** uses [vim-github-dark](https://github.com/wojciechkepka/vim-github-dark) (`colorscheme ghdark`, closest match to the bat theme) via vim-plug, set after `plug#end()` in `.vimrc` with small overrides for selection/folds. On a new machine run `:PlugInstall` (`.vim/plugged` is gitignored).
+
+**ghostty** reads `~/.config/ghostty`, a symlink to `ghostty/` in this repo (set up by `symlink-setup.sh`). Don't keep a config in `~/Library/Application Support/com.mitchellh.ghostty/`, ghostty loads that one last so it overrides the repo. Check it with `ghostty +validate-config`, reload with cmd+shift+, .
