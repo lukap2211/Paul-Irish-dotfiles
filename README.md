@@ -143,4 +143,4 @@ More themes: [eza-themes](https://github.com/eza-community/eza-themes/tree/main/
 
 **ccat** is [bat](https://github.com/sharkdp/bat) (`bat --paging=never`). `~/.config/bat` is a symlink to `bat/` in this repo; `bat/config` picks the theme and `bat/themes/GitHub Dark.tmTheme` is a custom theme with the same colours as eza. Run `bat cache --build` after changing a theme, list themes with `bat --list-themes`.
 
-**vim** uses [vim-colors-github](https://github.com/cormacrelf/vim-colors-github) via vim-plug, set after `plug#end()` in `.vimrc`. On a new machine run `:PlugInstall` (`.vim/plugged` is gitignored). `background=dark` picks the dark variant.
+**vim** uses [vim-github-dark](https://github.com/wojciechkepka/vim-github-dark) (`colorscheme ghdark`, closest match to the bat theme) via vim-plug, set after `plug#end()` in `.vimrc` with small overrides for selection/folds. On a new machine run `:PlugInstall` (`.vim/plugged` is gitignored).

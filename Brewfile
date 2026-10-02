@@ -168,6 +168,8 @@ brew "zsh-syntax-highlighting"
 cask "bruno"
 # App to build and share containerised applications and microservices
 cask "docker-desktop"
+# Nerd Font icons/powerline symbols only (iTerm non-ASCII font, for vim-airline)
+cask "font-symbols-only-nerd-font"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
 # Terminal emulator as alternative to Apple's Terminal app
