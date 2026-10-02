@@ -98,5 +98,5 @@ flags: {foreground: "#d2a8ff"}
 
 symlink_path: {foreground: "#a5d6ff"}
 control_char: {foreground: "#79c0ff"}
-broken_symlink: {foreground: "#ff7b72"}
-broken_path_overlay: {foreground: "#8b949e"}
+broken_symlink: {foreground: "#ffffff", background: "#da3633"}
+broken_path_overlay: {foreground: "#ffffff"}
