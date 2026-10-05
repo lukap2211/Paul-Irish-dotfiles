@@ -75,31 +75,69 @@
 	renameLimit = 0
 	ff = only
 
-# rewrites of repo paths
-[url "git@github.com:"]
-	insteadOf = "https://github.com/"
-	pushInsteadOf = "github:"
-	pushInsteadOf = "git://github.com/"
-	pushInsteadOf = "https://github.com/"
+# GITHUB =======
 
-[url "git://github.com/"]
-	insteadOf = "github:"
+# work SPECIFIC
 
-[url "git@gist.github.com:"]
-	pushInsteadOf = "gist:"
-	pushInsteadOf = "git://gist.github.com/"
+# # rewrites of repo paths
+# [url "git@github.com:"]
+# 	insteadOf = "https://github.com/"
+# 	pushInsteadOf = "github:"
+# 	pushInsteadOf = "git://github.com/"
+# 	pushInsteadOf = "https://github.com/"
 
-[url "git://gist.github.com/"]
-	insteadOf = "gist:"
+# [url "git://github.com/"]
+# 	insteadOf = "github:"
+
+# [url "git@gist.github.com:"]
+# 	pushInsteadOf = "gist:"
+# 	pushInsteadOf = "git://gist.github.com/"
+
+# [url "git://gist.github.com/"]
+# 	insteadOf = "gist:"
+
+# work SPECIFIC - NEW
+# https://work.example.com/workgit/get-started/fragments/vpn-macos-git
+[credential]
+	helper = store
+
+[http "https://work.example.com"]
+	proxy = http://work.example.com:80
+
+[url "https://work.example.com/"]
+	insteadOf = workgit:
+[url "https://work.example.com/"]
+	insteadOf = work.example.com:
+[url "https://work.example.com/"]
+	insteadOf = git@work.example.com:
+[url "https://work.example.com/"]
+	insteadOf = ssh://git@work.example.com/
+
+[http "https://github.com"]
+	proxy = http://work.example.com:81
+	sslCAinfo = ~/work-cert/work-root-ca.crt
+
+[url "https://github.com/"]
+	insteadOf = github.com:
+[url "https://github.com/"]
+	insteadOf = git@github.com:
+[url "https://github.com/"]
+	insteadOf = ssh://git@github.com/
+
+[http "https://gitlab.com"]
+	proxy = http://work.example.com:81
+	sslCAinfo = ~/work-cert/work-root-ca.crt
+
+[url "https://gitlab.com/"]
+	insteadOf = gitlab.com:
+[url "https://gitlab.com/"]
+	insteadOf = git@gitlab.com:
+[url "https://gitlab.com/"]
+	insteadOf = ssh://git@gitlab.com/
 
 # correct typos
 [help]
 	autocorrect = 1
-
-# push easily. http://stackoverflow.com/a/23918418/89484
-[push]
-	default = current
-	followTags = true
 
 [init]
 	defaultBranch = main
@@ -112,18 +150,24 @@
 
 [fetch]
 	prune = true
+
 [diff]
     # Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
     # https://blog.github.com/2018-04-05-git-217-released/
     colorMoved = zebra
+
 [stash]
 	showPatch = true
+
 [pull]
 	rebase = true
+
 [branch]
   autosetuprebase = always
+
 [url "workgit:"]
 	insteadof = https://work.example.com/
+
 # work identity by default
 [user]
 	name = lpuharic1

@@ -88,3 +88,5 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # uncomment to finish profiling
 # zprof
+
+. "$HOME/.local/bin/env"

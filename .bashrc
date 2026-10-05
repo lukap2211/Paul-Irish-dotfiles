@@ -4,3 +4,4 @@
 
 
 PATH=~/.console-ninja/.bin:$PATH
+. "$HOME/.local/bin/env"
