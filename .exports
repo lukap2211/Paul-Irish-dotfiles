@@ -1,5 +1,5 @@
 #!/bin/bash
-# vim as default
+# VS Code as default editor
 export EDITOR="code"
 
 # Don’t clear the screen after quitting a manual page
@@ -7,8 +7,9 @@ export MANPAGER="less -X"
 
 # Prefer US English and use UTF-8
 export LC_ALL="en_US.UTF-8"
-export LANG="en_US"
+export LANG="en_US.UTF-8"
 
+# Install casks into the system-wide Applications folder
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 # eza theme lives in ~/.config/eza/theme.yml (macOS default is ~/Library/Application Support/eza)
@@ -16,19 +17,18 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export EZA_CONFIG_DIR="$HOME/.config/eza"
 unset LS_COLORS
 
+# nvm (installed with homebrew): load nvm and its bash completion
 export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+# NVM dark mode colors
+export NVM_COLORS='cgYmW'
 
-
+# Prefer homebrew curl over the macOS system one
 export PATH="${HOMEBREW_PREFIX:-/opt/homebrew}/opt/curl/bin:$PATH"
 
 # lolcommits
-
-# outsourced to home, so not every picture gets uploaded. Project folder is being added automatically.
-export LOLCOMMITS_DIR=$HOME/Desktop/lolcommits
-# MACBook Camera needs to warm up. 3 would be better, but 2 is acceptable.
+# Outsourced to home, so not every picture gets uploaded. Project folder is being added automatically.
+export LOLCOMMITS_DIR="$HOME/Desktop/lolcommits"
+# MacBook camera needs to warm up. 3 would be better, but 2 is acceptable.
 export LOLCOMMITS_DELAY=2
-
-# NVM dark mode colors
-export NVM_COLORS='cgYmW'

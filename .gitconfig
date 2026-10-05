@@ -1,44 +1,46 @@
+# shortcuts for common commands
 [alias]
 	b = branch
 	c = commit -am
-	fpush = push --force
 	s = status
-	sclone = clone --depth=1
+	co = checkout
+	cp = cherry-pick
+	cherrypick = cherry-pick
 	amend = commit --amend --all
+	fpush = push --force
+	sclone = clone --depth=1
 	undocommit = reset HEAD~
 	hreset = reset --hard
-	co = checkout
 	df = diff --color --color-words --abbrev
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
-	cherrypick = cherry-pick
-	cherry = cherry-pick
-	cp = cherry-pick
-  wip = for-each-ref --sort='authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
-
+	# Local branches, oldest first, with how long ago they were last touched
+	wip = for-each-ref --sort='authordate:iso8601' --format=' %(color:green)%(authordate:relative)%09%(color:white)%(refname:short)' refs/heads
 	# Show the diff between the latest commit and the current state
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
-
 	reup = rebase-update # depot_tools specific
 	git = !exec git
 
+# global ignore/attributes files, pager and commit message editor
 [core]
 	excludesfile = ~/.gitignore_global
 	attributesfile = ~/.gitattributes
 	pager = diff-so-fancy | less --tabs=4 -RFX
 	editor = vim
 
+# insanely beautiful diffs (diff-so-fancy is installed via the Brewfile)
 [pager]
-	# insanely beautiful diffs ==> npm install -g diff-so-fancy
 	diff = diff-so-fancy | less --tabs=4 -RFX
 	show = diff-so-fancy | less --tabs=4 -RFX
 
+# disabled until github.com/so-fancy/diff-so-fancy/pull/172 is resolved :(
 [interactive]
-  # disabled until github.com/so-fancy/diff-so-fancy/pull/172 is resolved :(
 	# diffFilter = "diff-so-fancy"
 
 # so much color
 [color]
 	ui = auto
+
+# diff colours, including moved lines (see [diff] colorMoved)
 [color "diff"]
 	meta = yellow bold
 	commit = green bold
@@ -46,127 +48,125 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
-    newMoved = cyan
-	oldmoved = blue
+	newMoved = cyan
+	oldMoved = blue
+
+# word-level highlight colours used by diff-so-fancy
 [color "diff-highlight"]
 	oldNormal = red bold
-	oldhighlight = red bold 52
-	newNormal = "green bold"
-	newhighlight = green bold 22
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+
+# git branch colours
 [color "branch"]
 	current = yellow reverse
 	local = yellow
 	remote = green
+
+# git status colours
 [color "status"]
 	added = yellow
 	changed = green
 	untracked = cyan
 
-# colour blame metadata by age: old = dim grey ... last week = green (github dark palette)
+# colour blame metadata by age, with relative dates
 [blame]
 	coloring = highlightRecent
 	date = relative
+
+# blame age colours: old = dim grey ... last week = green (github dark palette)
 [color "blame"]
 	highlightRecent = 243, 18 month ago, 246, 6 month ago, 252, 1 month ago, 111, 1 week ago, 114
 
-# git mergetool
+# Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
+# https://blog.github.com/2018-04-05-git-217-released/
+[diff]
+	colorMoved = zebra
+
+# git mergetool, no rename detection limit, fast-forward merges only
 [merge]
 	tool = opendiff
 	renameLimit = 0
 	ff = only
 
-# GITHUB =======
+# delete local refs to branches removed on the remote
+[fetch]
+	prune = true
 
-# work SPECIFIC
+# rebase instead of merge on pull
+[pull]
+	rebase = true
 
-# # rewrites of repo paths
-# [url "git@github.com:"]
-# 	insteadOf = "https://github.com/"
-# 	pushInsteadOf = "github:"
-# 	pushInsteadOf = "git://github.com/"
-# 	pushInsteadOf = "https://github.com/"
+# new branches rebase on pull too
+[branch]
+	autosetuprebase = always
 
-# [url "git://github.com/"]
-# 	insteadOf = "github:"
-
-# [url "git@gist.github.com:"]
-# 	pushInsteadOf = "gist:"
-# 	pushInsteadOf = "git://gist.github.com/"
-
-# [url "git://gist.github.com/"]
-# 	insteadOf = "gist:"
-
-# work SPECIFIC - NEW
-# https://work.example.com/workgit/get-started/fragments/vpn-macos-git
-[credential]
-	helper = store
-
-[http "https://work.example.com"]
-	proxy = http://work.example.com:80
-
-[url "https://work.example.com/"]
-	insteadOf = workgit:
-[url "https://work.example.com/"]
-	insteadOf = work.example.com:
-[url "https://work.example.com/"]
-	insteadOf = git@work.example.com:
-[url "https://work.example.com/"]
-	insteadOf = ssh://git@work.example.com/
-
-[http "https://github.com"]
-	proxy = http://work.example.com:81
-	sslCAinfo = ~/work-cert/work-root-ca.crt
-
-[url "https://github.com/"]
-	insteadOf = github.com:
-[url "https://github.com/"]
-	insteadOf = git@github.com:
-[url "https://github.com/"]
-	insteadOf = ssh://git@github.com/
-
-[http "https://gitlab.com"]
-	proxy = http://work.example.com:81
-	sslCAinfo = ~/work-cert/work-root-ca.crt
-
-[url "https://gitlab.com/"]
-	insteadOf = gitlab.com:
-[url "https://gitlab.com/"]
-	insteadOf = git@gitlab.com:
-[url "https://gitlab.com/"]
-	insteadOf = ssh://git@gitlab.com/
+# show the full diff in git stash show
+[stash]
+	showPatch = true
 
 # correct typos
 [help]
 	autocorrect = 1
 
+# default branch name for git init
 [init]
 	defaultBranch = main
 
+# git lfs hooks
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	required = true
 	process = git-lfs filter-process
 
-[fetch]
-	prune = true
+######################################################################
+### work: proxies and URL rewrites
 
-[diff]
-    # Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
-    # https://blog.github.com/2018-04-05-git-217-released/
-    colorMoved = zebra
+# https://work.example.com/workgit/get-started/fragments/vpn-macos-git
+[credential]
+	helper = store
 
-[stash]
-	showPatch = true
+# workgit proxy
+[http "https://work.example.com"]
+	proxy = http://work.example.com:80
 
-[pull]
-	rebase = true
+# rewrite workgit ssh-style addresses to https
+[url "https://work.example.com/"]
+	insteadOf = workgit:
+	insteadOf = work.example.com:
+	insteadOf = git@work.example.com:
+	insteadOf = ssh://git@work.example.com/
 
-[branch]
-  autosetuprebase = always
-
+# rewrite workgit https addresses to the workgit: shorthand
 [url "workgit:"]
-	insteadof = https://work.example.com/
+	insteadOf = https://work.example.com/
+
+# github proxy and work root certificate
+[http "https://github.com"]
+	proxy = http://work.example.com:81
+	sslCAinfo = ~/work-cert/work-root-ca.crt
+
+# rewrite github ssh-style addresses to https
+[url "https://github.com/"]
+	insteadOf = github.com:
+	insteadOf = git@github.com:
+	insteadOf = ssh://git@github.com/
+
+# gitlab proxy and work root certificate
+[http "https://gitlab.com"]
+	proxy = http://work.example.com:81
+	sslCAinfo = ~/work-cert/work-root-ca.crt
+
+# rewrite gitlab ssh-style addresses to https
+[url "https://gitlab.com/"]
+	insteadOf = gitlab.com:
+	insteadOf = git@gitlab.com:
+	insteadOf = ssh://git@gitlab.com/
+
+######################################################################
+### identity
 
 # work identity by default
 [user]
@@ -175,4 +175,4 @@
 
 # personal identity / github token / etc for repos under ~/GitHub, overrides the work [user] above
 [includeIf "gitdir:~/GitHub/"]
-  path = ~/.gitconfig.local
+	path = ~/.gitconfig.local

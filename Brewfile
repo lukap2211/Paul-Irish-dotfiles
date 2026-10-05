@@ -30,8 +30,6 @@ brew "coreutils"
 brew "gnutls"
 # GNU Emacs text editor
 brew "emacs"
-# Validating, recursive, caching DNS resolver
-brew "unbound"
 # Emacs dependency management
 brew "cask"
 # Get a file from an HTTP, HTTPS or FTP server
@@ -60,10 +58,10 @@ brew "gcc"
 brew "gh"
 # OpenType text shaping engine
 brew "harfbuzz"
-# TIFF library and utilities
-brew "libtiff"
 # Image format providing lossless and lossy compression for web images
 brew "webp"
+# TIFF library and utilities
+brew "libtiff"
 # Library for JPEG-2000 image manipulation
 brew "openjpeg"
 # Image processing and image analysis library
@@ -134,6 +132,8 @@ brew "pure"
 brew "pv"
 # Python version management
 brew "pyenv"
+# Powerful, clean, object-oriented scripting language
+brew "ruby"
 # Static http server anywhere you need one
 brew "serve"
 # Database of common MIME types
@@ -152,6 +152,8 @@ brew "the_silver_searcher"
 brew "tldr"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
+# Validating, recursive, caching DNS resolver
+brew "unbound"
 # Internet file retriever
 brew "wget"
 # General-purpose lossless data-compression library
@@ -186,6 +188,8 @@ vscode "ahmadalli.vscode-nginx-conf"
 vscode "anthropic.claude-code"
 vscode "bierner.markdown-mermaid"
 vscode "work.worktools"
+vscode "work.rover"
+vscode "work.wplus-vscode"
 vscode "bradymholt.pgformatter"
 vscode "charliermarsh.ruff"
 vscode "crystal-spider.jsdoc-generator"
@@ -207,6 +211,8 @@ vscode "ms-python.vscode-pylance"
 vscode "ms-python.vscode-python-envs"
 vscode "ms-vscode-remote.remote-containers"
 vscode "ms-vscode-remote.remote-ssh"
+vscode "ms-vscode-remote.remote-ssh-edit"
+vscode "ms-vscode.remote-explorer"
 vscode "ms-vscode.sublime-keybindings"
 vscode "nicolasvuillamy.vscode-groovy-lint"
 vscode "prisma.prisma"
@@ -224,6 +230,7 @@ vscode "yzhang.markdown-all-in-one"
 uv "work-tools-ide-tool"
 npm "@work/claude-code"
 npm "@marp-team/marp-cli"
+npm "@wtools/wplus-cli"
 npm "@typescript/analyze-trace"
 npm "work-platform-config"
 npm "work-platform-vscode"

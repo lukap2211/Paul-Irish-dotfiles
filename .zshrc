@@ -90,3 +90,6 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # zprof
 
 . "$HOME/.local/bin/env"
+
+# Homebrew Ruby gem executables (e.g. lolcommits); update the version after a Ruby upgrade
+export PATH="/opt/homebrew/lib/ruby/gems/4.0.0/bin:$PATH"
