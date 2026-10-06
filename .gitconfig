@@ -180,7 +180,7 @@
 
 # work identity by default
 [user]
-	name = lpuharic1
+	name = Luka Puharic
 	email = work@example.com
 
 # personal identity / github token / etc for repos under ~/GitHub, overrides the work [user] above

@@ -93,13 +93,13 @@ Two hosts, two accounts, same machine:
 | account | `lukap2211` | `lpuharic1` |
 | network | via `work.example.com:81` + work root cert | via `work.example.com:80` |
 | login | `gh auth login -h github.com` | `gh auth login -h work.example.com` |
-| commit identity | `Luka Puharic <lukap2211@gmail.com>` for repos under `~/GitHub/` (`.gitconfig.local`) | `lpuharic1 <work@example.com>` everywhere else |
+| commit identity | `Luka Puharic <lukap2211@gmail.com>` for repos under `~/GitHub/` (`.gitconfig.local`) | `Luka Puharic <work@example.com>` everywhere else |
 
 How it works, in plain english:
 
 * **everything goes over https.** ssh-style addresses (`git@github.com:...`, `workgit:...`) get rewritten to https, so the proxy and the login below always apply.
 * **passwords come from `gh`.** git asks `gh` for a token for each host (`!gh auth git-credential`). `gh` keeps one login per host in the macOS keychain, so the two accounts never mix. The global `store` helper (`~/.git-credentials`) is skipped for these two hosts; it's still there for anything else.
-* **who you are in commits depends on the folder**, not the host. The `includeIf "gitdir:~/GitHub/"` swaps in the personal name/email from `.gitconfig.local`.
+* **which email you commit with depends on the folder**, not the host. The name is always `Luka Puharic`; the `includeIf "gitdir:~/GitHub/"` swaps in the personal email from `.gitconfig.local`.
 
 Gotchas:
 
