@@ -148,6 +148,11 @@
 	proxy = http://work.example.com:81
 	sslCAinfo = ~/work-cert/work-root-ca.crt
 
+# github.com auth via `gh auth login -h github.com` (workgit keeps the store helper above)
+[credential "https://github.com"]
+	helper =
+	helper = !gh auth git-credential
+
 # rewrite github ssh-style addresses to https
 [url "https://github.com/"]
 	insteadOf = github.com:
