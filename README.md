@@ -73,7 +73,7 @@ Lastly, I use `open .` to open Finder from this path. (That's just available nor
 
 #### manual run
 * `setup-a-new-machine.sh` - random apps i need installed
-* `backup-old-machine.sh` - backs up the old machine into `~/migration` (plus `user-info.sh` with github user and git identities) for `setup-a-new-machine.sh` to restore
+* `backup-old-machine.sh` - backs up the old machine into `~/migration` (plus `user-info.sh` with github user and git identities, `repos.txt` with every repo under `~/GitHub` and `~/workgit`, and all of `~/.claude` plus the claude files those repos keep out of git) for `setup-a-new-machine.sh` to restore
 * `symlink-setup.sh`  - sets up symlinks for all dotfiles and vim config.
 * `.macos` - run on a fresh macOS setup
 * `brew.sh` - homebrew initialization (`brew bundle` on `Brewfile`)

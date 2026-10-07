@@ -56,18 +56,49 @@ find ~/GitHub ~/workgit -maxdepth 5 -path '*/.git/hooks/post-commit' -exec grep 
 
 # Documents and Desktop aren't copied, they sync via iCloud
 
-# claude code: user settings, plugins, per-project memory and the user-scoped MCP servers
-# skips conversation transcripts, history and caches. the login is in the keychain, run /login on the new machine
-mkdir -p ~/migration/home/.claude
-cp -p ~/.claude/settings.json ~/migration/home/.claude/
-for f in CLAUDE.md keybindings.json agents commands skills hooks output-styles plugins; do
-    [ -e ~/.claude/"$f" ] && cp -Rp ~/.claude/"$f" ~/migration/home/.claude/
-done
-# memory dirs are keyed by project path (projects/-Users-<you>-.../memory), so they match if the paths do
-(cd ~/.claude && find projects -mindepth 2 -maxdepth 2 -type d -name memory -exec rsync -aR {} ~/migration/home/.claude/ \;)
-# ~/.claude.json also holds a machine id and caches, so only take mcpServers
-python3 -c 'import json, os, sys; json.dump({"mcpServers": json.load(open(os.path.expanduser("~/.claude.json"))).get("mcpServers", {})}, sys.stdout, indent=2)' \
-    > ~/migration/home/claude-mcp-servers.json
+# claude code: all of ~/.claude (settings, plugins, plans, history, and per-project memory + transcripts so
+# /resume works), minus per-machine state and caches. the login is in the keychain, run /login on the new machine
+# projects/ is keyed by path (-Users-<you>-workgit-cvp), so keep the same username and folder layout
+rsync -a \
+    --exclude sessions --exclude session-env --exclude shell-snapshots --exclude daemon --exclude daemon.log \
+    --exclude debug --exclude ide --exclude paste-cache --exclude statsig --exclude .last-cleanup --exclude .DS_Store \
+    --exclude tasks --exclude backups --exclude 'settings.json.backup.*' --exclude '.claude.json*' \
+    --exclude plugins/marketplaces \
+    ~/.claude ~/migration/home/
+# ~/.claude.json also holds a machine id and caches, so only take the user MCP servers and per-project
+# settings (trust, allowed tools, project MCP servers)
+python3 - > ~/migration/home/claude.json <<'EOF'
+import json, os, sys
+config = json.load(open(os.path.expanduser("~/.claude.json")))
+keys = ("hasTrustDialogAccepted", "allowedTools", "mcpServers", "enabledMcpjsonServers", "disabledMcpjsonServers")
+projects = {path: {k: v[k] for k in keys if v.get(k)} for path, v in config.get("projects", {}).items()}
+json.dump({"mcpServers": config.get("mcpServers", {}), "projects": {p: v for p, v in projects.items() if v}}, sys.stdout, indent=2)
+EOF
+
+# git repos under ~/GitHub/<user>/ and ~/workgit/, as "<path relative to ~> <origin url>" per line,
+# setup-a-new-machine.sh clones them again. committed CLAUDE.md, .claude/skills etc come back that way
+for repo in ~/GitHub/*/*/.git ~/workgit/*/.git; do
+    repo="${repo%/.git}"
+    url="$(git -C "$repo" remote get-url origin 2>/dev/null)" && echo "${repo#"$HOME"/} $url"
+done > ~/migration/repos.txt
+
+# claude files in those repos that git doesn't have (.claude/settings.local.json, CLAUDE.local.md, untracked
+# CLAUDE.md / .mcp.json / .claude/*), kept at the same path under ~/migration/repos/
+while read -r repo url; do
+    git -C ~/"$repo" ls-files --others -- .claude CLAUDE.md CLAUDE.local.md .mcp.json \
+        ':!:**/__pycache__/**' ':!:**/.mypy_cache/**' \
+        | rsync -a --files-from=- ~/"$repo"/ ~/migration/repos/"$repo"/
+done < ~/migration/repos.txt
+# folders under ~/workgit that aren't git repos won't be cloned, copy them over by hand if you need them
+find ~/workgit -mindepth 1 -maxdepth 1 -type d ! -exec test -d {}/.git \; -print
+
+# work that isn't pushed yet won't come back with the clone, push it (or copy the repo) first
+while read -r repo url; do
+    dirty="$(git -C ~/"$repo" status --porcelain -- . ':!:.claude/settings.local.json' \
+        ':!:**/__pycache__/**' ':!:**/.mypy_cache/**' | head -1)"
+    unpushed="$(git -C ~/"$repo" log --branches --not --remotes --oneline | head -1)"
+    [ -n "$dirty$unpushed" ] && echo "unpushed or uncommitted: ~/$repo"
+done < ~/migration/repos.txt
 
 cp -Rp ~/Library/Services ~/migration/Library/ # automator stuff
 cp -Rp ~/Library/Fonts ~/migration/Library/    # all those fonts you've installed

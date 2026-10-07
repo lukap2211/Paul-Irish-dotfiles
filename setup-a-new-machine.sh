@@ -39,15 +39,19 @@ chmod 644 ~/.ssh/*.pub
 
 # Documents and Desktop come back via iCloud, sign in to it to start the sync
 
-# claude code settings, plugins and memory, then merge the MCP servers into ~/.claude.json (created if missing)
-# run /login in claude afterwards, the login isn't migrated
+# claude code: ~/.claude (settings, plugins, memory, transcripts, history), then merge the MCP servers and
+# per-project settings into ~/.claude.json (created if missing). run /login in claude afterwards, the login
+# isn't migrated. the per-repo .claude/settings.local.json files come back once the repos are cloned, see below
 mkdir -p ~/.claude
 cp -Rp home/.claude/. ~/.claude/
 python3 - <<'EOF'
 import json, os
 path = os.path.expanduser("~/.claude.json")
 config = json.load(open(path)) if os.path.exists(path) else {}
-config.setdefault("mcpServers", {}).update(json.load(open("home/claude-mcp-servers.json"))["mcpServers"])
+backup = json.load(open("home/claude.json"))
+config.setdefault("mcpServers", {}).update(backup["mcpServers"])
+for project, settings in backup["projects"].items():
+    config.setdefault("projects", {}).setdefault(project, {}).update(settings)
 json.dump(config, open(path, "w"), indent=2)
 EOF
 cp -Rp Library/Services Library/Fonts ~/Library/
@@ -115,6 +119,26 @@ git clone https://github.com/ohmyzsh/ohmyzsh.git "$HOME"/.oh-my-zsh
 vim +PlugInstall +qall
 
 # ~/.ssh/config isn't linked, see .ssh.config.example
+
+
+##############################################################################################################
+### clone the rest of your repos (~/GitHub/<user>/*, ~/workgit/*)
+# remotes are https, the symlinked .gitconfig gets the tokens from gh, so log in to both hosts first
+
+gh auth login -h github.com
+gh auth login -h work.example.com
+
+# skips any that already exist (this repo)
+while read -r repo url; do
+    [ -d ~/"$repo" ] || git clone "$url" ~/"$repo"
+done < ~/migration/repos.txt
+
+# claude files git doesn't have (.claude/settings.local.json etc), back to the same path in each repo
+[ -d ~/migration/repos ] && cp -Rp ~/migration/repos/. ~/
+
+# the claude hooks in ~/.claude/settings.json call ~/.config/iterm2/cc-status (iTerm's claude status helper)
+mkdir -p ~/.config/iterm2
+ln -sf /Applications/iTerm.app/Contents/Resources/utilities/cc-status ~/.config/iterm2/cc-status
 
 
 ##############################################################################################################
