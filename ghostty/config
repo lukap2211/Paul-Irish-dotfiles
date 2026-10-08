@@ -23,3 +23,6 @@ copy-on-select = clipboard
 # search navigation: cmd+g / cmd+shift+g for next / previous match
 keybind = super+g=navigate_search:next
 keybind = super+shift+g=navigate_search:previous
+
+# let cmd+v paste into the search bar: only consume it when the terminal can paste
+keybind = super+v=paste_from_clipboard
