@@ -8,11 +8,11 @@
 #### installing & using
 
 * fork this to your own acct
-* clone that repo with submodules: `git clone --recursive` (or `git submodule update --init` after). `fish/functions/pure` uses ssh, so set up `~/.ssh` first
+* clone that repo with submodules: `git clone --recursive` (or `git submodule update --init` after). On the work network github.com needs the proxy, see the clone step in `setup-a-new-machine.sh`
 * read and run parts of `setup-a-new-machine.sh`
 * read and run `symlink-setup.sh`
   * git config needs attention, read the notes.
-* copy over files that aren't in the repo: `.gitconfig.local` (gitignored, lives in the repo folder), `~/.extra`, `~/.ssh`
+* copy over files that aren't in the repo: `.gitconfig.local` (gitignored, lives in the repo folder), `~/.extra`, `~/.ssh`, `~/work-cert` (`backup-old-machine.sh` collects them all)
 * use it. yay!
 
 #### maintenance
@@ -99,27 +99,19 @@ Follows [Git on a macOS vpn system](https://work.example.com/workgit/get-started
 
 * **github.com goes over https.** ssh-style addresses (`git@github.com:...`) get rewritten to https, so the proxy and the `gh` login always apply. Git asks `gh` for the token (`!gh auth git-credential`), which keeps it in the macOS keychain.
 * **workgit goes over ssh.** https addresses get rewritten to `workgit:...`, which `Host workgit` in `~/.ssh/config` maps to `git@work.example.com` with the key above. No token needed, so submodules and scripts just work.
-* **anything else** (e.g. a gitlab token) is saved by the `osxkeychain` helper.
+* **anything else** (e.g. a gitlab token) is saved by the `osxkeychain` helper. Nothing is stored in plaintext (no `store` helper, no `~/.git-credentials`).
+* **certificates live in `~/work-cert`** ([work CA root](https://work.example.com:8443/work_LP_CORP_CLASS_1_ROOT_G2.pem) saved as `work-root-ca.crt`, plus `CABundle.pem`). Git uses the root cert for github.com and gitlab.com; `~/.extra` points `SSL_CERT_FILE`, `REQUESTS_CA_BUNDLE`, `NODE_EXTRA_CA_CERTS` and `AWS_CA_BUNDLE` at the bundle.
 * **which email you commit with depends on the folder**, not the host. The name is always `Luka Puharic`; the `includeIf "gitdir:~/GitHub/"` swaps in the personal email from `.gitconfig.local`.
 
-`~/.ssh/config` stanza for workgit (no other stanza may mention workgit):
-
-```
-Host workgit work.example.com
-    HostName work.example.com
-    IdentityFile ~/.ssh/workgit/id_ed25519
-    IdentityAgent none
-    User git
-    RequestTTY no
-    UserKnownHostsFile /dev/null
-    StrictHostKeyChecking no
-```
+The `~/.ssh/config` for this is in [`.ssh.config.example`](.ssh.config.example). `~/.ssh/config.d/0_bootstrap_owned.config` is work's generated config (remote-access etc.); it's deliberately not `Include`d.
 
 Gotchas:
 
 * don't export `GITHUB_TOKEN` in `~/.extra`. `gh` prefers it over the keychain login for github.com, and a stale one breaks pushes with "Invalid username or token".
-* checking: `ssh -T git@workgit` should say "Hi lpuharic1!"; `gh auth status` should show github.com logged in; `git push --dry-run` tests a repo without pushing.
-* new machine: copy the `~/.ssh/workgit` key over (or make a new one and add it on workgit), run `gh auth login -h github.com`, then copy `.gitconfig.local` over.
+* github.com over ssh doesn't work here: port 22 is blocked, and `ssh.github.com:443` only gets through the proxy with a helper like `socat`. Stick to https.
+* if workgit git commands hang, it's the ssh agent. The workgit stanza has `IdentityAgent none` for that; `ssh -o IdentityAgent=none -T git@workgit` tells you if the key itself is fine.
+* checking: `ssh -T git@workgit` should say "Hi lpuharic1!"; `gh auth status` should show github.com logged in; `git push --dry-run` tests a repo without pushing. Run ssh checks in a normal terminal, Claude Code's sandbox can't read `~/.ssh`.
+* new machine: copy `~/.ssh` (with the `workgit` key) and `~/work-cert` over, run `gh auth login -h github.com`, then copy `.gitconfig.local` over.
 
 
 ### `.extra` for your private configuration

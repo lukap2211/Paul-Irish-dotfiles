@@ -7,7 +7,7 @@ third_party/WebKit/Source/devtools/front_end/audits2/lighthouse/renderer/report-
 .vim/swaps/*
 .vim/undo
 
-# git credential files
+# personal git identity
 .gitconfig.local
 
 

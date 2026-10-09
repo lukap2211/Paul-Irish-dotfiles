@@ -1,22 +1,23 @@
-# copy to ~/.ssh/config
+# copy to ~/.ssh/config (chmod 600)
+# ssh keeps the first value it finds for each option, so specific hosts go first and Host * last
 
-Host github.com
-	ControlMaster auto
-	ControlPersist 120
+# workgit, per https://work.example.com/workgit/get-started/fragments/vpn-macos-git
+# no other stanza may mention workgit. its servers rotate host keys, hence /dev/null + no checking.
+# IdentityAgent none: the key has no passphrase, and skipping the agent means a stuck agent can't hang git
+Host workgit work.example.com
+	HostName work.example.com
+	IdentityFile ~/.ssh/workgit/id_ed25519
+	IdentityAgent none
+	User git
+	RequestTTY no
+	UserKnownHostsFile /dev/null
+	StrictHostKeyChecking no
+
+# github.com and gitlab.com aren't here: git reaches them over https (see .gitconfig), ssh port 22 is blocked
 
 Host *
-	# Always use SSH2.
-	Protocol 2
-
-	# Use a shared channel for all sessions to the same host,
-	# instead of always opening a new one. This leads to much
-	# quicker connection times.
-	ControlMaster auto
-	ControlPath ~/.ssh/control/%r@%h:%p
-	ControlPersist 1800
-
-	# also this stuff
-	Compression yes
-	TCPKeepAlive yes
-	ServerAliveInterval 20
-	ServerAliveCountMax 10
+	AddKeysToAgent yes
+	UseKeychain yes
+	IdentitiesOnly yes
+	StrictHostKeyChecking accept-new
+	UserKnownHostsFile ~/.ssh/known_hosts

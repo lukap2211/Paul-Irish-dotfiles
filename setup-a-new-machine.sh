@@ -30,12 +30,14 @@ cp -Rp \
     home/.bash_history \
     home/.zsh_history \
     home/.extra \
+    home/work-cert \
     home/.ssh \
     home/.lolcommits \
     ~/
-chmod 700 ~/.ssh
-chmod 600 ~/.ssh/*
-chmod 644 ~/.ssh/*.pub
+# ssh refuses keys others can read. folders (~/.ssh/workgit) need 700 or the key inside can't be opened
+find ~/.ssh -type d -exec chmod 700 {} +
+find ~/.ssh -type f -exec chmod 600 {} +
+find ~/.ssh -name '*.pub' -exec chmod 644 {} +
 
 # Documents and Desktop come back via iCloud, sign in to it to start the sync
 
@@ -61,12 +63,16 @@ cp -Rp Library/"Application Support"/zoxide ~/Library/"Application Support"/
 
 
 ##############################################################################################################
-### clone this repo (ssh works now that ~/.ssh is back)
+### clone this repo
+# github.com only works over https through the proxy (ssh port 22 is blocked). .gitconfig sets that up but isn't
+# linked yet, so pass the same settings here. the pure submodule's git@github.com: url gets rewritten to https too
 
 mkdir -p ~/GitHub/"$GITHUB_USER"
-git clone --recursive git@github.com:"$GITHUB_USER/$DOTFILES_REPO".git ~/GitHub/"$GITHUB_USER/$DOTFILES_REPO"
+git -c http.proxy=http://work.example.com:81 -c http.sslCAInfo=~/work-cert/work-root-ca.crt \
+    -c url."https://github.com/".insteadOf=git@github.com: \
+    clone --recursive https://github.com/"$GITHUB_USER/$DOTFILES_REPO".git ~/GitHub/"$GITHUB_USER/$DOTFILES_REPO"
 cd ~/GitHub/"$GITHUB_USER/$DOTFILES_REPO" || exit
-git remote add upstream git@github.com:paulirish/dotfiles.git
+git remote add upstream https://github.com/paulirish/dotfiles.git
 
 # gitignored, lives in the repo and gets symlinked to ~/ by symlink-setup.sh, so it has to be here first
 # if the backup has none, create it with the personal identity
@@ -109,7 +115,7 @@ git clone https://github.com/ohmyzsh/ohmyzsh.git "$HOME"/.oh-my-zsh
 ##############################################################################################################
 ### symlinks to link dotfiles into ~/
 
-# git credentials live in ~/.gitconfig.local (http://stackoverflow.com/a/13615531/89484)
+# the personal git identity lives in ~/.gitconfig.local (http://stackoverflow.com/a/13615531/89484)
 # so .gitconfig can be shared across all machines and only the .local changes
 # .gitconfig has the work identity, ~/.gitconfig.local (personal) is only used for repos under ~/GitHub
 
@@ -118,15 +124,17 @@ git clone https://github.com/ohmyzsh/ohmyzsh.git "$HOME"/.oh-my-zsh
 # install vim plugins (vim-plug is in .vim/autoload, plugins go in .vim/plugged)
 vim +PlugInstall +qall
 
-# ~/.ssh/config isn't linked, see .ssh.config.example
+# ~/.ssh/config isn't linked, it came back with ~/.ssh. .ssh.config.example has the workgit stanza if you need it
 
 
 ##############################################################################################################
 ### clone the rest of your repos (~/GitHub/<user>/*, ~/workgit/*)
-# remotes are https, the symlinked .gitconfig gets the tokens from gh, so log in to both hosts first
+# github.com goes over https with the token from gh, so log in first. workgit goes over ssh with
+# ~/.ssh/workgit/id_ed25519, check it with `ssh -T git@workgit` (the workgit gh login is only for the gh command)
 
 gh auth login -h github.com
 gh auth login -h work.example.com
+ssh -T git@workgit
 
 # skips any that already exist (this repo)
 while read -r repo url; do
