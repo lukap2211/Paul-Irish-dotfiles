@@ -78,6 +78,8 @@ brew "ghostscript"
 brew "gifsicle"
 # Distributed revision control system
 brew "git"
+# Quickly rewrite git repository history
+brew "git-filter-repo"
 # GNU implementation of the famous stream editor
 brew "gnu-sed"
 # Open source programming language to build simple/reliable/efficient software
@@ -168,8 +170,6 @@ brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 # Open source IDE for exploring and testing APIs
 cask "bruno"
-# App to build and share containerised applications and microservices
-cask "docker-desktop"
 cask "font-symbols-only-nerd-font"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"

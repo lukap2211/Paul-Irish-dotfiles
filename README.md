@@ -106,6 +106,8 @@ Anything tied to an employer (default work email, proxies and certificates, the 
 * `Brewfile` loads `~/Brewfile.work`
 * `backup-old-machine.sh` and `setup-a-new-machine.sh` source `work/env.sh` for extra folders to back up (`EXTRA_HOME`), extra repo folders (`EXTRA_REPO_DIRS`), `~/.ssh` files to skip (`SSH_EXCLUDES`), proxy flags for the first clone (`CLONE_OPTS`) and extra gh / ssh logins (`GH_HOSTS`, `SSH_CHECKS`)
 
+To regenerate the Brewfile run `brewfile-dump` (in `bin/`), not `brew bundle dump --force`: a plain dump drops the `~/Brewfile.work` loader and writes the work-only installs back into the public Brewfile. New work-only installs show up in its `git diff`; move them to `work/Brewfile.work` and run it again.
+
 `symlink-setup.sh` links the `work/.*` and `work/Brewfile.*` files into `~`. `work/README.md` documents the rest. Since `work/` isn't in git, `backup-old-machine.sh` copies it to `~/migration/work` and the setup script puts it back; that backup is its only copy.
 
 

@@ -1,0 +1,32 @@
+#!/bin/bash
+# Usage: brewfile-dump
+#
+# Regenerates the Brewfile from what's installed (`brew bundle dump`) without losing the work split:
+# anything listed in ~/Brewfile.work stays out of it, and the loader for ~/Brewfile.work is kept at the end.
+# Use this instead of `brew bundle dump --force`, then review `git diff` before committing. New work-only
+# installs show up as additions there: move them to work/Brewfile.work and run this again.
+
+set -euo pipefail
+
+brewfile="$(realpath ~/Brewfile)"
+work_brewfile=~/Brewfile.work
+dump="$(mktemp)"
+trap 'command rm -f "$dump"' EXIT
+
+brew bundle dump --force --file="$dump"
+
+# drop every entry that's in ~/Brewfile.work, together with the description comment dump puts above it
+awk -v work="$work_brewfile" '
+    BEGIN { while ((getline line < work) > 0) if (line ~ /^[a-z]+ "/) skip[line] = 1 }
+    /^#/ { comment = comment $0 "\n"; next }
+    { if (!($0 in skip)) printf "%s%s\n", comment, $0; comment = "" }
+' "$dump" > "$brewfile"
+
+cat >> "$brewfile" <<'EOF'
+
+# work-only installs, gitignored in work/ and linked to ~/Brewfile.work by symlink-setup.sh. skipped if missing
+work_brewfile = File.expand_path("~/Brewfile.work")
+instance_eval(File.read(work_brewfile), work_brewfile) if File.exist?(work_brewfile)
+EOF
+
+git -C "$(dirname "$brewfile")" diff --stat -- Brewfile
