@@ -98,18 +98,23 @@ Two hosts, two accounts, same machine:
 Follows [Git on a macOS vpn system](https://work.example.com/workgit/get-started/fragments/vpn-macos-git). How it works, in plain english:
 
 * **github.com goes over https.** ssh-style addresses (`git@github.com:...`) get rewritten to https, so the proxy and the `gh` login always apply. Git asks `gh` for the token (`!gh auth git-credential`), which keeps it in the macOS keychain.
-* **workgit goes over ssh.** https addresses get rewritten to `workgit:...`, which `Host workgit` in `~/.ssh/config` maps to `git@work.example.com` with the key above. No token needed, so submodules and scripts just work.
+* **workgit goes over ssh.** https addresses get rewritten to `workgit:...`, which the `Host workgit` stanza (from work-bootstrap, see below) maps to `git@work.example.com` with the key above. No token needed, so submodules and scripts just work.
 * **anything else** (e.g. a gitlab token) is saved by the `osxkeychain` helper. Nothing is stored in plaintext (no `store` helper, no `~/.git-credentials`).
 * **certificates live in `~/work-cert`** ([work CA root](https://work.example.com:8443/work_LP_CORP_CLASS_1_ROOT_G2.pem) saved as `work-root-ca.crt`, plus [`CABundle.pem`](https://work.example.com:8443/CABundle.pem), every CA work trusts). Git uses the root cert for github.com and gitlab.com; `~/.extra` points `SSL_CERT_FILE`, `REQUESTS_CA_BUNDLE`, `NODE_EXTRA_CA_CERTS` and `AWS_CA_BUNDLE` at the bundle. Re-download the bundle now and then (check it against `CABundle.pem.sha256` next to it): when the proxy moves to a new root, e.g. *work Proxy Root CA 2026 G3*, an old bundle breaks python, node, curl and aws with certificate errors.
 * **which email you commit with depends on the folder**, not the host. The name is always `Luka Puharic`; the `includeIf "gitdir:~/GitHub/"` swaps in the personal email from `.gitconfig.local`.
 
-The `~/.ssh/config` for this is in [`.ssh.config.example`](.ssh.config.example). `~/.ssh/config.d/0_bootstrap_owned.config` is work's generated config (remote-access etc.); it's deliberately not `Include`d.
+`~/.ssh` follows the layout [work-bootstrap](https://work.example.com/Local-Development/work-bootstrap/blob/main/work/tools/mac_universal_bootstrap/ssh.py) checks for, see [`.ssh.config.example`](.ssh.config.example):
+
+* `~/.ssh/config` is only `Include config.d/*` plus the bootstrap's comment. The check fails unless that's the first line; if the file is anything else, the bootstrap won't touch it and leaves `~/.ssh/config.proposed` next to it instead (same for `~/.npmrc.proposed`).
+* `~/.ssh/config.d/0_bootstrap_owned.config` is generated (workgit, remote-access, work defaults) and must match what the bootstrap would write, so don't edit it. It loads first, so its settings win: no host key checking anywhere, and every host except workgit goes through remote-access's `ra` (harmless while github.com and gitlab.com stay on https).
+* `~/.ssh/config.d/10_custom.config` is mine: `IdentityAgent none` for workgit and `UseKeychain yes`. Don't add another full workgit stanza, the doc says only one may mention it.
 
 Gotchas:
 
 * don't export `GITHUB_TOKEN` in `~/.extra`. `gh` prefers it over the keychain login for github.com, and a stale one breaks pushes with "Invalid username or token".
 * github.com over ssh doesn't work here: port 22 is blocked, and `ssh.github.com:443` only gets through the proxy with a helper like `socat`. Stick to https.
-* if workgit git commands hang, it's the ssh agent. The workgit stanza has `IdentityAgent none` for that; `ssh -o IdentityAgent=none -T git@workgit` tells you if the key itself is fine.
+* if workgit git commands hang, it's the ssh agent. `10_custom.config` has `IdentityAgent none` for workgit for that; `ssh -o IdentityAgent=none -T git@workgit` tells you if the key itself is fine.
+* if the bootstrap ever ran with `sudo`, `config.d` and its file end up owned by root and unreadable ("Permission denied", `ls` showing `fts_read`). Use `/bin/ls -leO@` (`ls` is eza) to check, then `sudo chown "$USER":staff` the folder and the file, and `chmod 700 ~/.ssh/config.d`.
 * checking: `ssh -T git@workgit` should say "Hi lpuharic1!"; `gh auth status` should show github.com logged in; `git push --dry-run` tests a repo without pushing. Run ssh checks in a normal terminal, Claude Code's sandbox can't read `~/.ssh`.
 * new machine: copy `~/.ssh` (with the `workgit` key) and `~/work-cert` over, run `gh auth login -h github.com`, then copy `.gitconfig.local` over.
 

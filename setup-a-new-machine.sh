@@ -124,7 +124,8 @@ git clone https://github.com/ohmyzsh/ohmyzsh.git "$HOME"/.oh-my-zsh
 # install vim plugins (vim-plug is in .vim/autoload, plugins go in .vim/plugged)
 vim +PlugInstall +qall
 
-# ~/.ssh/config isn't linked, it came back with ~/.ssh. .ssh.config.example has the workgit stanza if you need it
+# ~/.ssh/config isn't linked, it came back with ~/.ssh (layout in .ssh.config.example). work-bootstrap
+# regenerates ~/.ssh/config.d/0_bootstrap_owned.config, run it before the ssh -T check below
 
 
 ##############################################################################################################

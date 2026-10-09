@@ -47,8 +47,8 @@ cp -Rp \
     ~/work-cert \
     ~/migration/home
 # ~/work-cert has the work CA certs: .gitconfig uses work-root-ca.crt, ~/.extra points SSL_CERT_FILE etc at CABundle.pem
-# ~/.ssh minus the agent socket and config.d (root-owned and unreadable, the bootstrap tool regenerates it)
-rsync -a --exclude agent --exclude config.d ~/.ssh ~/migration/home/
+# ~/.ssh minus the agent socket and the bootstrap's generated config.d file (work-bootstrap rewrites it)
+rsync -a --exclude agent --exclude 0_bootstrap_owned.config ~/.ssh ~/migration/home/
 cp -Rp ~/Library/Application\ Support/zoxide ~/migration/Library/"Application Support"/ # zoxide's directory db
 
 # lolcommits: photos and per-repo config live in ~/.lolcommits, the post-commit hooks live in each repo's .git
