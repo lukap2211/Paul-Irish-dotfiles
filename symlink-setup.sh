@@ -88,7 +88,7 @@ for file in .vim bin Brewfile; do
     link "$DOTFILES/$file" "$HOME/$file"
 done
 
-# work-only files in work/ (gitignored): .gitconfig.work, .zshrc.work, Brewfile.work, ... picked up by the
+# work-only files in work/ (gitignored): .gitconfig.work, Brewfile.work, ... picked up by the
 # matching public files when they exist
 if [ -d "$DOTFILES/work" ]; then
     for file in $(find work -maxdepth 1 -type f \( -name ".*" -o -name "Brewfile.*" \) -not -name .DS_Store \

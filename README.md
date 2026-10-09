@@ -99,12 +99,13 @@ Gotchas:
 
 #### work-specific config: `work/`
 
-Anything tied to an employer (default work email, proxies and certificates, the work git host, internal packages, the work `~/.ssh` layout) lives in a gitignored `work/` folder in the repo, so it's never pushed. The public files only have hooks that load it when it's there:
+Most things tied to an employer (proxies and certificates, internal packages, the work `~/.ssh` layout, the work docs) live in a gitignored `work/` folder in the repo, so they're never pushed. The public files only have hooks that load it when it's there:
 
 * `.gitconfig` `[include]`s `~/.gitconfig.work`
-* `.zshrc` sources `~/.zshrc.work`
 * `Brewfile` loads `~/Brewfile.work`
 * `backup-old-machine.sh` and `setup-a-new-machine.sh` source `work/env.sh` for extra folders to back up (`EXTRA_HOME`), extra repo folders (`EXTRA_REPO_DIRS`), `~/.ssh` files to skip (`SSH_EXCLUDES`), proxy flags for the first clone (`CLONE_OPTS`) and extra gh / ssh logins (`GH_HOSTS`, `SSH_CHECKS`)
+
+The exception is what the work bootstrap manages itself, because it checks the files in `~` directly (`git config --global` ignores includes): the work email and the bbgithub URL rewrite stay in `.gitconfig`, and `source ~/.lcldevrc` stays in `.zshrc`. Moving them to `work/` only makes the bootstrap write them back.
 
 To regenerate the Brewfile run `brewfile-dump` (in `bin/`), not `brew bundle dump --force`: a plain dump drops the `~/Brewfile.work` loader and writes the work-only installs back into the public Brewfile. New work-only installs show up in its `git diff`; move them to `work/Brewfile.work` and run it again.
 

@@ -139,14 +139,20 @@
 	insteadOf = git@github.com:
 	insteadOf = ssh://git@github.com/
 
+# bbgithub goes over ssh (`Host bbgithub` in ~/.ssh/config): rewrite https addresses to the bbgithub: shorthand.
+# written by the work bootstrap, which checks for it in this file (`git config --global` ignores includes)
+[url "bbgithub:"]
+	insteadof = https://bbgithub.dev.bloomberg.com/
+
 ######################################################################
 ### identity
 
+# work email by default, also written here by the work bootstrap. repos under ~/GitHub get the personal one below
 [user]
 	name = Luka Puharic
+	email = lpuharic1@bloomberg.net
 
-# work-only settings (default email, proxies, work git host), gitignored in work/ and linked by symlink-setup.sh.
-# skipped if it doesn't exist
+# other work-only settings (proxies), gitignored in work/ and linked by symlink-setup.sh. skipped if it doesn't exist
 [include]
 	path = ~/.gitconfig.work
 

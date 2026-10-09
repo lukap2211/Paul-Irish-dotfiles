@@ -5,7 +5,7 @@
 ######################################################################
 ### PATH
 
-# drop duplicate PATH entries (nested shells, brew shellenv run again by work tooling)
+# drop duplicate PATH entries (nested shells, brew shellenv in .lcldevrc too)
 typeset -U path PATH
 
 # arm64 homebrew, also adds its zsh site-functions to fpath
@@ -76,8 +76,8 @@ source $ZSH/oh-my-zsh.sh
 # Load default dotfiles
 source ~/.bash_profile
 
-# work-only shell setup, gitignored in work/ and linked by symlink-setup.sh
-[ -r ~/.zshrc.work ] && source ~/.zshrc.work
+# work tooling. the work bootstrap checks this file for the text `source ~/.lcldevrc` (and appends it if missing)
+[ -r ~/.lcldevrc ] && source ~/.lcldevrc
 
 # Google Cloud SDK: PATH and gcloud completion
 [ -f ~/Downloads/google-cloud-sdk/path.zsh.inc ] && source ~/Downloads/google-cloud-sdk/path.zsh.inc
