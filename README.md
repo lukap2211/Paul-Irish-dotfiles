@@ -91,21 +91,35 @@ Two hosts, two accounts, same machine:
 | | github.com | work.example.com |
 |---|---|---|
 | account | `lukap2211` | `lpuharic1` |
-| network | via `work.example.com:81` + work root cert | via `work.example.com:80` |
-| login | `gh auth login -h github.com` | `gh auth login -h work.example.com` |
+| network | https via `work.example.com:81` + work root cert | ssh, direct |
+| login | `gh auth login -h github.com` | ssh key `~/.ssh/workgit/id_ed25519`, public half added at workgit settings/keys |
 | commit identity | `Luka Puharic <lukap2211@gmail.com>` for repos under `~/GitHub/` (`.gitconfig.local`) | `Luka Puharic <work@example.com>` everywhere else |
 
-How it works, in plain english:
+Follows [Git on a macOS vpn system](https://work.example.com/workgit/get-started/fragments/vpn-macos-git). How it works, in plain english:
 
-* **everything goes over https.** ssh-style addresses (`git@github.com:...`, `workgit:...`) get rewritten to https, so the proxy and the login below always apply.
-* **passwords come from `gh`.** git asks `gh` for a token for each host (`!gh auth git-credential`). `gh` keeps one login per host in the macOS keychain, so the two accounts never mix. The global `store` helper (`~/.git-credentials`) is skipped for these two hosts; it's still there for anything else.
+* **github.com goes over https.** ssh-style addresses (`git@github.com:...`) get rewritten to https, so the proxy and the `gh` login always apply. Git asks `gh` for the token (`!gh auth git-credential`), which keeps it in the macOS keychain.
+* **workgit goes over ssh.** https addresses get rewritten to `workgit:...`, which `Host workgit` in `~/.ssh/config` maps to `git@work.example.com` with the key above. No token needed, so submodules and scripts just work.
+* **anything else** (e.g. a gitlab token) is saved by the `osxkeychain` helper.
 * **which email you commit with depends on the folder**, not the host. The name is always `Luka Puharic`; the `includeIf "gitdir:~/GitHub/"` swaps in the personal email from `.gitconfig.local`.
+
+`~/.ssh/config` stanza for workgit (no other stanza may mention workgit):
+
+```
+Host workgit work.example.com
+    HostName work.example.com
+    IdentityFile ~/.ssh/workgit/id_ed25519
+    IdentityAgent none
+    User git
+    RequestTTY no
+    UserKnownHostsFile /dev/null
+    StrictHostKeyChecking no
+```
 
 Gotchas:
 
-* don't export `GITHUB_TOKEN` in `~/.extra`. `gh` prefers it over the keychain login for github.com, and a stale one breaks pushes with "Invalid username or token". workgit ignores it (`gh` reads `GH_ENTERPRISE_TOKEN` there).
-* checking: `gh auth status` should show both hosts logged in; `git push --dry-run` tests a repo without pushing.
-* new machine: run both `gh auth login` commands above, then copy `.gitconfig.local` over.
+* don't export `GITHUB_TOKEN` in `~/.extra`. `gh` prefers it over the keychain login for github.com, and a stale one breaks pushes with "Invalid username or token".
+* checking: `ssh -T git@workgit` should say "Hi lpuharic1!"; `gh auth status` should show github.com logged in; `git push --dry-run` tests a repo without pushing.
+* new machine: copy the `~/.ssh/workgit` key over (or make a new one and add it on workgit), run `gh auth login -h github.com`, then copy `.gitconfig.local` over.
 
 
 ### `.extra` for your private configuration
