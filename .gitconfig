@@ -125,26 +125,11 @@
 ### work: proxies and URL rewrites
 
 # https://work.example.com/workgit/get-started/fragments/vpn-macos-git
+# github.com uses gh below; anything else (e.g. gitlab tokens) goes in the macOS keychain
 [credential]
-	helper = store
+	helper = osxkeychain
 
-# workgit proxy
-[http "https://work.example.com"]
-	proxy = http://work.example.com:80
-
-# workgit auth via `gh auth login -h work.example.com`
-[credential "https://work.example.com"]
-	helper =
-	helper = !gh auth git-credential
-
-# rewrite workgit ssh-style addresses to https
-[url "https://work.example.com/"]
-	insteadOf = workgit:
-	insteadOf = work.example.com:
-	insteadOf = git@work.example.com:
-	insteadOf = ssh://git@work.example.com/
-
-# rewrite workgit https addresses to the workgit: shorthand
+# workgit goes over ssh (`Host workgit` in ~/.ssh/config): rewrite https addresses to the workgit: shorthand
 [url "workgit:"]
 	insteadOf = https://work.example.com/
 
