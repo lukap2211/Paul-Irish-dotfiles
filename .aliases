@@ -28,11 +28,10 @@ alias ccat='bat --paging=never'
 # time to upgrade `ls`. use eza instead of dealing with coreutils, LS_COLORS blah blah
 # colors come from ~/.config/eza/theme.yml
 
-# always use color, even when piping (to awk,grep,etc)
-export CLICOLOR_FORCE=1
-
-alias ls='eza --classify=auto --color --group-directories-first --sort=extension -A'
-alias la='eza --classify=auto --color --group-directories-first --sort=name -a -l --octal-permissions --no-permissions'
+# always use color in ls, even when piping (to awk,grep,etc). not a global CLICOLOR_FORCE: that makes every
+# tool (uv, ...) print color codes into pipes, which breaks scripts parsing them (work-bootstrap)
+alias ls='eza --classify=auto --color=always --group-directories-first --sort=extension -A'
+alias la='eza --classify=auto --color=always --group-directories-first --sort=name -a -l --octal-permissions --no-permissions'
 alias lsd='ls -lD' # only directories
 alias tree='eza -T'
 ###
