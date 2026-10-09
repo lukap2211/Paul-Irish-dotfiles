@@ -23,18 +23,22 @@ xcode-select --install
 
 cd ~/migration || exit
 
-# GITHUB_USER, DOTFILES_REPO, PERSONAL_NAME, PERSONAL_EMAIL, WORK_NAME, WORK_EMAIL
+# GITHUB_USER, DOTFILES_REPO, PERSONAL_NAME, PERSONAL_EMAIL
 source ~/migration/user-info.sh
+
+# work extras, if the backup has work/ (see the README): EXTRA_HOME, CLONE_OPTS, GH_HOSTS, SSH_CHECKS
+EXTRA_HOME=() CLONE_OPTS=() GH_HOSTS=() SSH_CHECKS=()
+[ -f ~/migration/work/env.sh ] && source ~/migration/work/env.sh
 
 cp -Rp \
     home/.bash_history \
     home/.zsh_history \
     home/.extra \
-    home/work-cert \
     home/.ssh \
     home/.lolcommits \
     ~/
-# ssh refuses keys others can read. folders (~/.ssh/workgit) need 700 or the key inside can't be opened
+for dir in "${EXTRA_HOME[@]}"; do cp -Rp home/"$dir" ~/; done
+# ssh refuses keys others can read. folders (e.g. one per key) need 700 or the key inside can't be opened
 find ~/.ssh -type d -exec chmod 700 {} +
 find ~/.ssh -type f -exec chmod 600 {} +
 find ~/.ssh -name '*.pub' -exec chmod 644 {} +
@@ -64,34 +68,29 @@ cp -Rp Library/"Application Support"/zoxide ~/Library/"Application Support"/
 
 ##############################################################################################################
 ### clone this repo
-# github.com only works over https through the proxy (ssh port 22 is blocked). .gitconfig sets that up but isn't
-# linked yet, so pass the same settings here. the pure submodule's git@github.com: url gets rewritten to https too
+# over https (the .gitconfig that rewrites ssh urls isn't linked yet). behind a proxy, CLONE_OPTS from work/env.sh
+# passes the proxy settings on the command line
 
 mkdir -p ~/GitHub/"$GITHUB_USER"
-git -c http.proxy=http://work.example.com:81 -c http.sslCAInfo=~/work-cert/work-root-ca.crt \
-    -c url."https://github.com/".insteadOf=git@github.com: \
-    clone --recursive https://github.com/"$GITHUB_USER/$DOTFILES_REPO".git ~/GitHub/"$GITHUB_USER/$DOTFILES_REPO"
+git "${CLONE_OPTS[@]}" clone --recursive \
+    https://github.com/"$GITHUB_USER/$DOTFILES_REPO".git ~/GitHub/"$GITHUB_USER/$DOTFILES_REPO"
 cd ~/GitHub/"$GITHUB_USER/$DOTFILES_REPO" || exit
 git remote add upstream https://github.com/paulirish/dotfiles.git
 
-# gitignored, lives in the repo and gets symlinked to ~/ by symlink-setup.sh, so it has to be here first
-# if the backup has none, create it with the personal identity
+# gitignored, live in the repo and get symlinked to ~/ by symlink-setup.sh, so they have to be here first
+# if the backup has no .gitconfig.local, create it with the personal identity
 if [ -f ~/migration/home/.gitconfig.local ]; then
     cp -p ~/migration/home/.gitconfig.local .
 else
     git config --file .gitconfig.local user.name "$PERSONAL_NAME"
     git config --file .gitconfig.local user.email "$PERSONAL_EMAIL"
 fi
-
-# the work identity is the [user] block in .gitconfig, set it to the old machine's (no-op if unchanged)
-git config --file .gitconfig user.email "$WORK_EMAIL"
-git config --file .gitconfig user.name "$WORK_NAME"
+[ -d ~/migration/work ] && cp -Rp ~/migration/work .
 
 
 ##############################################################################################################
 ### homebrew
-# install homebrew first, see https://brew.sh/
-# on a work machine the work bootstrap installs homebrew and node, so skip that and run brew.sh after it
+# install homebrew first, see https://brew.sh/ (or the work machine's own bootstrap, see work/README.md)
 # brew.sh runs `brew bundle` on ./Brewfile (also symlinked to ~/Brewfile by symlink-setup.sh)
 
 ./brew.sh
@@ -117,25 +116,25 @@ git clone https://github.com/ohmyzsh/ohmyzsh.git "$HOME"/.oh-my-zsh
 
 # the personal git identity lives in ~/.gitconfig.local (http://stackoverflow.com/a/13615531/89484)
 # so .gitconfig can be shared across all machines and only the .local changes
-# .gitconfig has the work identity, ~/.gitconfig.local (personal) is only used for repos under ~/GitHub
+# ~/.gitconfig.work (from work/) has the default work identity, ~/.gitconfig.local (personal) is used for repos
+# under ~/GitHub
 
 ./symlink-setup.sh
 
 # install vim plugins (vim-plug is in .vim/autoload, plugins go in .vim/plugged)
 vim +PlugInstall +qall
 
-# ~/.ssh/config isn't linked, it came back with ~/.ssh (layout in .ssh.config.example). work-bootstrap
-# regenerates ~/.ssh/config.d/0_bootstrap_owned.config, run it before the ssh -T check below
+# ~/.ssh/config isn't linked, it came back with ~/.ssh (see .ssh.config.example, and work/ for work hosts)
 
 
 ##############################################################################################################
-### clone the rest of your repos (~/GitHub/<user>/*, ~/workgit/*)
-# github.com goes over https with the token from gh, so log in first. workgit goes over ssh with
-# ~/.ssh/workgit/id_ed25519, check it with `ssh -T git@workgit` (the workgit gh login is only for the gh command)
+### clone the rest of your repos (~/GitHub/<user>/*, plus the work folders from work/env.sh)
+# github.com goes over https with the token from gh, so log in first. then the extra gh logins and ssh checks
+# from work/env.sh (see work/README.md for what to run before them)
 
 gh auth login -h github.com
-gh auth login -h work.example.com
-ssh -T git@workgit
+for host in "${GH_HOSTS[@]}"; do gh auth login -h "$host"; done
+for login in "${SSH_CHECKS[@]}"; do ssh -T "$login"; done
 
 # skips any that already exist (this repo)
 while read -r repo url; do

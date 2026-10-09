@@ -5,7 +5,7 @@
 ######################################################################
 ### PATH
 
-# drop duplicate PATH entries (nested shells, brew shellenv in .workdevrc too)
+# drop duplicate PATH entries (nested shells, brew shellenv run again by work tooling)
 typeset -U path PATH
 
 # arm64 homebrew, also adds its zsh site-functions to fpath
@@ -76,7 +76,8 @@ source $ZSH/oh-my-zsh.sh
 # Load default dotfiles
 source ~/.bash_profile
 
-[ -r ~/.workdevrc ] && source ~/.workdevrc
+# work-only shell setup, gitignored in work/ and linked by symlink-setup.sh
+[ -r ~/.zshrc.work ] && source ~/.zshrc.work
 
 # Google Cloud SDK: PATH and gcloud completion
 [ -f ~/Downloads/google-cloud-sdk/path.zsh.inc ] && source ~/Downloads/google-cloud-sdk/path.zsh.inc

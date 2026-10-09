@@ -122,21 +122,11 @@
 	process = git-lfs filter-process
 
 ######################################################################
-### work: proxies and URL rewrites
+### credentials and URL rewrites
 
-# https://work.example.com/workgit/get-started/fragments/vpn-macos-git
 # github.com uses gh below; anything else (e.g. gitlab tokens) goes in the macOS keychain
 [credential]
 	helper = osxkeychain
-
-# workgit goes over ssh (`Host workgit` in ~/.ssh/config): rewrite https addresses to the workgit: shorthand
-[url "workgit:"]
-	insteadOf = https://work.example.com/
-
-# github proxy and work root certificate
-[http "https://github.com"]
-	proxy = http://work.example.com:81
-	sslCAinfo = ~/work-cert/work-root-ca.crt
 
 # github.com auth via `gh auth login -h github.com`
 [credential "https://github.com"]
@@ -149,25 +139,17 @@
 	insteadOf = git@github.com:
 	insteadOf = ssh://git@github.com/
 
-# gitlab proxy and work root certificate
-[http "https://gitlab.com"]
-	proxy = http://work.example.com:81
-	sslCAinfo = ~/work-cert/work-root-ca.crt
-
-# rewrite gitlab ssh-style addresses to https
-[url "https://gitlab.com/"]
-	insteadOf = gitlab.com:
-	insteadOf = git@gitlab.com:
-	insteadOf = ssh://git@gitlab.com/
-
 ######################################################################
 ### identity
 
-# work identity by default
 [user]
 	name = Luka Puharic
-	email = work@example.com
 
-# personal identity / github token / etc for repos under ~/GitHub, overrides the work [user] above
+# work-only settings (default email, proxies, work git host), gitignored in work/ and linked by symlink-setup.sh.
+# skipped if it doesn't exist
+[include]
+	path = ~/.gitconfig.work
+
+# personal identity / github token / etc for repos under ~/GitHub, overrides the work settings above
 [includeIf "gitdir:~/GitHub/"]
 	path = ~/.gitconfig.local

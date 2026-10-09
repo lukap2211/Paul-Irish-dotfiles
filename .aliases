@@ -29,7 +29,7 @@ alias ccat='bat --paging=never'
 # colors come from ~/.config/eza/theme.yml
 
 # always use color in ls, even when piping (to awk,grep,etc). not a global CLICOLOR_FORCE: that makes every
-# tool (uv, ...) print color codes into pipes, which breaks scripts parsing them (work-bootstrap)
+# tool (uv, ...) print color codes into pipes, which breaks scripts parsing their output
 alias ls='eza --classify=auto --color=always --group-directories-first --sort=extension -A'
 alias la='eza --classify=auto --color=always --group-directories-first --sort=name -a -l --octal-permissions --no-permissions'
 alias lsd='ls -lD' # only directories

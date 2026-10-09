@@ -10,6 +10,12 @@ third_party/WebKit/Source/devtools/front_end/audits2/lighthouse/renderer/report-
 # personal git identity
 .gitconfig.local
 
+# work-specific config and docs, never pushed (see the README)
+work/
+
+# vim's directory history
+.vim/.netrwhist
+
 
 # no thx
 node_modules
